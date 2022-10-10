@@ -21,10 +21,10 @@ contract DelegationTest is Test {
         /****************
          * Factory setup *
          *************** */
-        DelegationFactory DelegationFactory = new DelegationFactory();
-        ethernaut.registerLevel(DelegationFactory);
+        DelegationFactory delegationFactory = new DelegationFactory();
+        ethernaut.registerLevel(delegationFactory);
         vm.startPrank(player);
-        address levelAddress = ethernaut.createLevelInstance(DelegationFactory);
+        address levelAddress = ethernaut.createLevelInstance(delegationFactory);
         Delegation ethernautDelegation = Delegation(payable(levelAddress)); // 1000 is initial supply
         /****************
          *    Attack     *

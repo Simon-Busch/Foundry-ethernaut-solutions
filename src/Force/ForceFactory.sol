@@ -1,20 +1,20 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.14;
+pragma solidity ^0.8.10;
 
 import '../BaseLevel.sol';
-import './Telephone.sol';
+import './Force.sol';
 
-contract TelephoneFactory is Level {
+contract ForceFactory is Level {
 
   function createInstance(address _player) override public payable returns (address) {
     _player;
-    Telephone instance = new Telephone();
-    return address(instance);
+    return address(new Force());
   }
 
   function validateInstance(address payable _instance, address _player) override public returns (bool) {
-    Telephone instance = Telephone(_instance);
-    return instance.owner() == _player;
+    _player;
+    Force instance = Force(_instance);
+    return address(instance).balance > 0;
   }
 }
