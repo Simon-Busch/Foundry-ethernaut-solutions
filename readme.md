@@ -2,7 +2,7 @@
 
 - [x] Lvl 1 Fallback function
 - [x] Lvl 2 Fallout
-- [ ] Lvl 3 Coin Flip
+- [x] Lvl 3 Coin Flip
 - [ ] Lvl 4 Telephone
 - [ ] Lvl 5 Token
 - [ ] Lvl 6 Delegation
