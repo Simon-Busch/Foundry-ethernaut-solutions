@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.14;
 
 import "forge-std/Test.sol";
 import "../src/Fallback/FallbackFactory.sol";
@@ -31,7 +31,7 @@ contract FallbackTest is Test {
          *    Attack     *
          *************** */
         // Contribute 1 wei - verify contract state has been updated
-        // a contribution < 0.0001 ETH is needed 
+        // a contribution < 0.0001 ETH is needed
         ethernautFallback.contribute{value: 1 wei}();
         assertEq(ethernautFallback.contributions(player), 1 wei);
 
@@ -46,7 +46,6 @@ contract FallbackTest is Test {
         /*****************
          *Level Submission*
          ***************  */
-
         bool levelSuccessfullyPassed = ethernaut.submitLevelInstance(
             payable(levelAddress)
         );

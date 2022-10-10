@@ -1,7 +1,7 @@
 # Ethernaut-Foundry
 
 - [x] Lvl 1 Fallback function
-- [ ] Lvl 2 Fallout
+- [x] Lvl 2 Fallout
 - [ ] Lvl 3 Coin Flip
 - [ ] Lvl 4 Telephone
 - [ ] Lvl 5 Token
