@@ -26,11 +26,18 @@ contract VaultTest is Test {
         vm.startPrank(player);
         address levelAddress = ethernaut.createLevelInstance(vaultFactory);
         Vault ethernautVault = Vault(payable(levelAddress)); // 1000 is initial supply
-        vm.stopPrank();
         /****************
          *    Attack     *
          *************** */
-        
+        // In this level we discord how to access the storage in Solidity
+        // Even though the variable password is set as private, nothing is really private on the blockchain
+        // In the contract, there is first here is the definition of the variables;
+        /*
+          bool public locked; --> 0
+          bytes32 private password; --> 1
+        */
+        bytes32 password = vm.load(levelAddress, bytes32(uint256(1))); // We need to access slot 1
+        ethernautVault.unlock(password);
 
         /*****************
          *Level Submission*
