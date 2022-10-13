@@ -33,6 +33,7 @@ contract GatekeeperTwoTest is Test {
         /****************
          *    Attack     *
          *************** */
+        assertEq(ethernautGatekeeperTwo.entrant(), address(0));
         /*
         * Here we have again 3 modifier to pass
         * 1) We can trick this one by calling from a malicious contract
@@ -52,6 +53,7 @@ contract GatekeeperTwoTest is Test {
         */
         GatekeeperTwoHack gatekeeperTwoHack = new GatekeeperTwoHack(levelAddress);
 
+        assertEq(ethernautGatekeeperTwo.entrant(), tx.origin);
         /*****************
          *Level Submission*
          ***************  */

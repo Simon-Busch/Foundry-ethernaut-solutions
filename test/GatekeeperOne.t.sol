@@ -31,7 +31,7 @@ contract GatekeeperOneTest is Test {
             payable(levelAddress)
         );
         vm.stopPrank();
-
+        assertEq(ethernautGatekeeperOne.entrant(), address(0));
         /****************
          *    Attack     *
          *************** */

