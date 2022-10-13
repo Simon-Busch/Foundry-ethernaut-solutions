@@ -32,6 +32,16 @@ contract TelephoneTest is Test {
          *************** */
         TelephoneHack telephoneHack = new TelephoneHack(levelAddress);
         // here it's quite simple we just call attack
+        /*
+        * tx.origin:
+        *   The original user wallet that initiated the transaction
+        *   The origin address of potentially an entire chain of transactions and calls
+        *   Only user wallet addresses can be the tx.origin
+        *   A contract address can never be the tx.origin
+        * msg.sender:
+        *   The immediate sender of this specific transaction or call
+        *   Both user wallets and smart contracts can be the msg.sender
+         */
         telephoneHack.attack();
 
         /*****************
