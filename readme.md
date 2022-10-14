@@ -15,7 +15,7 @@
 - [x] Lvl 13 Gatekeeper 1
 - [x] Lvl 14 Gatekeeper 2
 - [x] Lvl 15 Naught Coin
-- [ ] Lvl 16 Preservation
+- [X] Lvl 16 Preservation
 - [ ] Lvl 17 Recovery
 - [ ] Lvl 18 MagicNumber
 - [ ] Lvl 19 Alien Codex
