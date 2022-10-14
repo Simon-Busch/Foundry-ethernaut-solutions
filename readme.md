@@ -12,9 +12,9 @@
 - [x] Lvl 10 Re-entrancy
 - [x] Lvl 11 Elevator
 - [x] Lvl 12 Privacy
-- [ ] Lvl 13 Gatekeeper 1
-- [ ] Lvl 14 Gatekeeper 2
-- [ ] Lvl 15 Naught Coin
+- [x] Lvl 13 Gatekeeper 1
+- [x] Lvl 14 Gatekeeper 2
+- [x] Lvl 15 Naught Coin
 - [ ] Lvl 16 Preservation
 - [ ] Lvl 17 Recovery
 - [ ] Lvl 18 MagicNumber
