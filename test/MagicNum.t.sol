@@ -30,39 +30,38 @@ contract MagicNumTest is Test {
          *    Attack     *
          *************** */
         /*
-         * In order to solve this level, based on hint, we need to dive in opcode
-         * we need to combine 2 things Init code and runtime code
-         * Knowing that the max must be under 10 opcodes.
-         *  600a -- push 10  => will set the runtime code size --> 1
-         *  600c -- push 12  => is the runtime code start byte --> 2
-         *  6000 -- push 0  => is the memory address to copy to --> 3
-         *  39   -- codecopy
-         *  600a -- push amount of bytes to return --> 4
-         *  6000 -- memory address to start returning from --> 5
-         *  f3   -- return
-         *  RUNTIME CODE
-         *  602a -- push value to return (42 in decimal) --> 6
-         *  6080 -- push mem address to store --> 7
-         *  52   -- mstore
-         *  6020 -- push number of bytes to return --> 8
-         *  6080 -- push mem address to return --> 9
-         *  f3   -- return --> 10 - final
-         */
-
-        // bytes memory code = "\x60\x0a\x60\x0c\x60\x00\x39\x60\x0a\x60\x00\xf3\x60\x2a\x60\x80\x52\x60\x20\x60\x80\xf3";
-        // address addr;
-        // assembly {
-        //   addr := create(0, add(code, 0x20), mload(code))
-        //   if iszero(extcodesize(addr)) {
-        //     revert(0, 0)
-        //   }
-        // }
-        // ethernautMagicNum.setSolver(addr);
-        /*
-        * The goal here is to deploy a contract that only return 42
-        * and is MAX 10 opcodes
-        */
+        ** First part
+        * Decompose the byte code:
+        * 0x => declare bytes code
+        * 69 => PUSH 10
+        * 602A => PUSH1  2A
+        * 6000 => PUSH1  00
+        * 52 => MSTORE take 1)offset and 2)value ( 32 bytes ) and store in memory
+        *   Offset == 00
+        *   Value == 2A ( what we need )
+        * 6020 => PUSH1  20
+        * 6000 => PUSH1  00
+        * F3 => RETURN
+        * This piece of bytes code returns :
+        * 000000000000000000000000000000000000000000000000000000000000002a
+        * Which is what is needed for the function whatIsTheMeaningOfLife and also equal to 42
+        *-> This minimal smartcontract always and only returns 42
+        *
+        * Second part:
+        *
+        // * Then we prefix the first part with 69 - PUSH10 to place 10 bytes in stack
+        * That will basically push the first part of the code
+        * 6000 => PUSH1 00
+        * 52 => MSTORE => store this in the memory
+        *   Offset == 00
+        *   Value == return of 69602A60005260206000F3 ( as prefixed with 69 ) return the 10 bytes
+        * 600A => PUSH1 0A
+        * 6016 => PUSH1 16
+        * F3 return
+       */
         address deployedContractAddress;
+        // Deploy the raw bytecode via the `create` yul function
+        // create(v, p, n)
         assembly {
             let ptr := mload(0x40)
             mstore(ptr, shl(0x68, 0x69602A60005260206000F3600052600A6016F3))

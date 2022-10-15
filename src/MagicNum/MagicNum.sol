@@ -2,16 +2,15 @@
 pragma solidity ^0.8.14;
 
 contract MagicNum {
+    address public solver;
 
-  address public solver;
+    constructor() public {}
 
-  constructor() public {}
+    function setSolver(address _solver) public {
+        solver = _solver;
+    }
 
-  function setSolver(address _solver) public {
-    solver = _solver;
-  }
-
-  /*
+    /*
     ____________/\\\_______/\\\\\\\\\_____
      __________/\\\\\_____/\\\///////\\\___
       ________/\\\/\\\____\///______\//\\\__
