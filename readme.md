@@ -18,8 +18,8 @@
 - [x] Lvl 16 Preservation
 - [x] Lvl 17 Recovery
 - [x] Lvl 18 MagicNumber
-- [ ] Lvl 19 Alien Codex
-- [ ] Lvl 20 Denial
+- [x] Lvl 19 Alien Codex
+- [x] Lvl 20 Denial
 - [ ] Lvl 21 Shop
 - [ ] Lvl 22 Dex
 - [ ] Lvl 23 Dex Two
