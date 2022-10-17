@@ -30,6 +30,7 @@ contract PuzzleWalletTest is Test {
          *    Attack     *
          *************** */
         /*
+        !! Here the proxy pattern used is Transparent proxy pattern
         * First we need to understand a bit how proxies work. The big picture would be the following:
         * Let's say we have 2 contract here
         * User interact with the Proxy contract ( here: ethernautPuzzleProxy ), which store all data.
