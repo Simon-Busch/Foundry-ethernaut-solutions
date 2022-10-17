@@ -22,7 +22,7 @@
 - [x] Lvl 20 Denial
 - [x] Lvl 21 Shop
 - [x] Lvl 22 Dex
-- [ ] Lvl 23 Dex Two
+- [x] Lvl 23 Dex Two
 - [ ] Lvl 24 Puzzle Wallet
 - [ ] Lvl 25 Motorbike
 - [ ] Lvl 26 DoubleEntryPoint
