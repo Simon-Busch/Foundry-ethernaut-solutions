@@ -20,8 +20,8 @@
 - [x] Lvl 18 MagicNumber
 - [x] Lvl 19 Alien Codex
 - [x] Lvl 20 Denial
-- [ ] Lvl 21 Shop
-- [ ] Lvl 22 Dex
+- [x] Lvl 21 Shop
+- [x] Lvl 22 Dex
 - [ ] Lvl 23 Dex Two
 - [ ] Lvl 24 Puzzle Wallet
 - [ ] Lvl 25 Motorbike
