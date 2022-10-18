@@ -1,28 +1,29 @@
 # Ethernaut-Foundry
 
-- [x] Lvl 1 Fallback function
-- [x] Lvl 2 Fallout
-- [x] Lvl 3 Coin Flip
-- [x] Lvl 4 Telephone
-- [x] Lvl 5 Token
-- [x] Lvl 6 Delegation
-- [x] Lvl 7 Force
-- [x] Lvl 8 Vault
-- [x] Lvl 9 King
-- [x] Lvl 10 Re-entrancy
-- [x] Lvl 11 Elevator
-- [x] Lvl 12 Privacy
-- [x] Lvl 13 Gatekeeper 1
-- [x] Lvl 14 Gatekeeper 2
-- [x] Lvl 15 Naught Coin
-- [x] Lvl 16 Preservation
-- [x] Lvl 17 Recovery
-- [x] Lvl 18 MagicNumber
-- [x] Lvl 19 Alien Codex
-- [x] Lvl 20 Denial
-- [x] Lvl 21 Shop
-- [x] Lvl 22 Dex
-- [x] Lvl 23 Dex Two
-- [ ] Lvl 24 Puzzle Wallet
-- [ ] Lvl 25 Motorbike
-- [ ] Lvl 26 DoubleEntryPoint
+- [x] Level 1 Fallback function
+- [x] Level 2 Fallout
+- [x] Level 3 Coin Flip
+- [x] Level 4 Telephone
+- [x] Level 5 Token
+- [x] Level 6 Delegation
+- [x] Level 7 Force
+- [x] Level 8 Vault
+- [x] Level 9 King
+- [x] Level 10 Re-entrancy
+- [x] Level 11 Elevator
+- [x] Level 12 Privacy
+- [x] Level 13 Gatekeeper 1
+- [x] Level 14 Gatekeeper 2
+- [x] Level 15 Naught Coin
+- [x] Level 16 Preservation
+- [x] Level 17 Recovery
+- [x] Level 18 MagicNumber
+- [x] Level 19 Alien Codex
+- [x] Level 20 Denial
+- [x] Level 21 Shop
+- [x] Level 22 Dex
+- [x] Level 23 Dex Two
+- [x] Level 24 Puzzle Wallet
+- [x] Level 25 Motorbike
+- [x] Level 26 DoubleEntryPoint
+- [ ] Level 27 Good Samaritan
