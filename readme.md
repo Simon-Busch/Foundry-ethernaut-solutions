@@ -26,4 +26,4 @@
 - [x] Level 24 Puzzle Wallet
 - [x] Level 25 Motorbike
 - [x] Level 26 DoubleEntryPoint
-- [ ] Level 27 Good Samaritan
+- [x] Level 27 Good Samaritan
