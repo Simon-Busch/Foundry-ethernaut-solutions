@@ -33,7 +33,7 @@ contract Forta is IForta {
             address(usersDetectionBots[msg.sender]) == address(0),
             "DetectionBot already set"
         );
-        usersDetectionBots[msg.sender] = IDetectionBot(detec=tionBotAddress);
+        usersDetectionBots[msg.sender] = IDetectionBot(detectionBotAddress);
     }
 
     function notify(address user, bytes calldata msgData) external override {
