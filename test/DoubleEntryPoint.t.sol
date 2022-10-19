@@ -77,6 +77,8 @@ contract DoubleEntryPointTest is Test {
          * ** Forta **
          * function setDetectionBot is user to set new bot address
          * function notify is calling handleTransaction the bot address
+         * This is how the call data is sent to the bot.
+         *
          * -> This function is also called in fortaNotify modifier
          * function raiseAlert increment the alert
          *
@@ -121,15 +123,30 @@ contract DoubleEntryPointTest is Test {
         assert(levelSuccessfullyPassed);
     }
 }
+
 /*
-* This idea of this contract is to detect potential abuse of CryptoVault
-* 1) Need to extend from  IDetectionBot
-* 2) actual address of the cryptoVault
-* 3) we have seen that this function is needed in a bot.
-*    Will raise an alert if certain conditions are met
-* 4) The opcode calldataload(0xa8) extracts 32 bytes from the calldata starting from the 0xa8 byte.
-* 5) additional check, if == ; raise alert.
-*/
+ * This idea of this contract is to detect potential abuse of CryptoVault
+ * 1) Need to extend from  IDetectionBot
+ * 2) actual address of the cryptoVault
+ * 3) we have seen that this function is needed in a bot.
+ *    Will raise an alert if certain conditions are met
+ * 4) msg.data is prefixed by the 4-byte function signature we start from fifth [4:]
+ * msg.data is a bytes calldata type of data that represents the complete calldata.
+ * ->address[TO], uint256[VALUE], address [FROM/origSender]
+ * -> this is before it's the msg.data passed to function
+ *  delegateTransfer(
+ *       address to,
+ *      uint256 value,
+ *      address origSender
+ *   )
+ * that triggers
+ * ->  fortaNotify modifier
+ * that calls
+ * -> notify from Forta contract
+ * that triggers
+ * -> handleTransaction
+ * 5) additional check, if == ; raise alert.
+ */
 // -- 1 --
 contract UpdatedBot is IDetectionBot {
     address private cryptoVault;
@@ -144,11 +161,11 @@ contract UpdatedBot is IDetectionBot {
         external
         override
     {
-        address origSender;
-        assembly {
-            origSender := calldataload(0xa8)
         // -- 4 --
-        }
+        (, , address origSender) = abi.decode(
+            msgData[4:],
+            (address, uint256, address)
+        );
         // -- 5 --
         if (origSender == cryptoVault) {
             IForta(msg.sender).raiseAlert(user);
