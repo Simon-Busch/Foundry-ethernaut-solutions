@@ -42,6 +42,7 @@ contract TokenTest is Test {
         ethernautToken.transfer(player, 2**256 - 21);
         vm.stopPrank();
         vm.startPrank(player);
+        assertEq(address(ethernautToken).balance, 0);
 
         /*****************
          *Level Submission*

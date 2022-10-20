@@ -23,7 +23,7 @@ contract TelephoneTest is Test {
          *************** */
         TelephoneFactory telephoneFactory = new TelephoneFactory();
         ethernaut.registerLevel(telephoneFactory);
-        vm.startPrank(tx.origin); // need to set the prank to tx.origin
+        vm.startPrank(player);
         address levelAddress = ethernaut.createLevelInstance(telephoneFactory);
         Telephone ethernautTelephone = Telephone(payable(levelAddress));
 
@@ -42,6 +42,7 @@ contract TelephoneTest is Test {
         *   Both user wallets and smart contracts can be the msg.sender
          */
         telephoneHack.attack();
+        assertEq(ethernautTelephone.owner(), player);
 
         /*****************
          *Level Submission*

@@ -25,7 +25,7 @@ contract ForceTest is Test {
         ethernaut.registerLevel(forceFactory);
         vm.startPrank(player);
         address levelAddress = ethernaut.createLevelInstance(forceFactory);
-        Force ethernautForce = Force(payable(levelAddress)); // 1000 is initial supply
+        Force ethernautForce = Force(payable(levelAddress));
         /****************
          *    Attack     *
          *************** */
@@ -33,7 +33,6 @@ contract ForceTest is Test {
         ForceHack forceHack = new ForceHack{value: 1 ether}(
             payable(levelAddress)
         );
-
         /*****************
          *Level Submission*
          ***************  */
