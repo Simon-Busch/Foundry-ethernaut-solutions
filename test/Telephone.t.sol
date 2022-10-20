@@ -31,7 +31,6 @@ contract TelephoneTest is Test {
          *    Attack     *
          *************** */
         TelephoneHack telephoneHack = new TelephoneHack(levelAddress);
-        // here it's quite simple we just call attack
         /*
         * tx.origin:
         *   The original user wallet that initiated the transaction
