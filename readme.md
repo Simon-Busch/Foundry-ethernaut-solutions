@@ -27,3 +27,7 @@
 - [x] Level 25 Motorbike
 - [x] Level 26 DoubleEntryPoint
 - [x] Level 27 Good Samaritan
+
+# Run the levels:
+`Make All` to run all tests
+`Make [LEVELNAME]` to run a specific level
