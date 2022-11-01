@@ -6,7 +6,6 @@ import "forge-std/console.sol";
 import "../src/Delegation/DelegationFactory.sol";
 import "../src/Ethernaut.sol";
 
-// forge test --match-contract DelegationTest -vvvv
 contract DelegationTest is Test {
     Ethernaut ethernaut;
     address player = address(100);
@@ -14,7 +13,7 @@ contract DelegationTest is Test {
     function setUp() public {
         // create new instance of ethernaut
         ethernaut = new Ethernaut();
-        vm.deal(player, 5 ether); // give our address 5 ether
+        vm.deal(player, 5 ether); // give our player 5 ether
     }
 
     function testDelegationHack() public {
@@ -30,7 +29,7 @@ contract DelegationTest is Test {
          *    Attack     *
          *************** */
         /*
-         *The more straightforward way to call the Delegate and claim ownership
+         *The more direct way to call the Delegate and claim ownership
          * is through the fallback function, as this function call it and pass it msg.data
          * we can encode the function signature of the pwn() function to do so
          * 1. "complex" way

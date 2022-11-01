@@ -6,7 +6,6 @@ import "forge-std/console.sol";
 import "../src/Privacy/PrivacyFactory.sol";
 import "../src/Ethernaut.sol";
 
-// forge test --match-contract PrivacyTest -vvvv
 contract PrivacyTest is Test {
     Ethernaut ethernaut;
     address player = address(100);
@@ -14,7 +13,7 @@ contract PrivacyTest is Test {
     function setUp() public {
         // create new instance of ethernaut
         ethernaut = new Ethernaut();
-        vm.deal(player, 5 ether); // give our address 5 ether
+        vm.deal(player, 5 ether); // give our player 5 ether
     }
 
     function testPrivacyHack() public {
@@ -30,9 +29,9 @@ contract PrivacyTest is Test {
          *    Attack     *
          *************** */
         /*
-        * In this challenge in order to kind the _key, we need to access bytes32[3] private data;
-        * With foundry, we have a helper function "load"
-        */
+         * In this challenge in order to kind the _key, we need to access bytes32[3] private data;
+         * With foundry, we have a helper function "load"
+         */
         bytes32 secretData = vm.load(levelAddress, bytes32(uint256(5))); // 5th slot used
         emit log_bytes32(secretData);
         ethernautPrivacy.unlock(bytes16(secretData));

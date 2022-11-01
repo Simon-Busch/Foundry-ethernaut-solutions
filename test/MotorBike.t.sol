@@ -6,7 +6,6 @@ import "../src/Motorbike/MotorbikeFactory.sol";
 import "../src/Ethernaut.sol";
 import "forge-std/console.sol";
 
-// forge test --match-contract MotorbikeTest -vvvv
 contract MotorbikeTest is Test {
     Ethernaut ethernaut;
     address payable player = payable(address(100));
@@ -14,7 +13,7 @@ contract MotorbikeTest is Test {
     function setUp() public {
         // create new instance of ethernaut
         ethernaut = new Ethernaut();
-        vm.deal(player, 5 ether); // give our address 5 ether
+        vm.deal(player, 5 ether); // give our player 5 ether
     }
 
     function testMotorbikeHack() public {

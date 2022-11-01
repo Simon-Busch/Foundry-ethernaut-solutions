@@ -6,7 +6,6 @@ import "../src/Elevator/ElevatorFactory.sol";
 import "../src/Ethernaut.sol";
 import "forge-std/console.sol";
 
-// forge test --match-contract ElevatorTest -vvvv
 contract ElevatorTest is Test {
     Ethernaut ethernaut;
     address player = address(100);
@@ -14,7 +13,7 @@ contract ElevatorTest is Test {
     function setUp() public {
         // create new instance of ethernaut
         ethernaut = new Ethernaut();
-        vm.deal(player, 5 ether); // give our address 5 ether
+        vm.deal(player, 5 ether); // give our player 5 ether
     }
 
     function testElevatorHack() public {

@@ -6,7 +6,6 @@ import "forge-std/console.sol";
 import "../src/Dex/DexFactory.sol";
 import "../src/Ethernaut.sol";
 
-// forge test --match-contract DexTest -vvvv
 contract DexTest is Test {
     Ethernaut ethernaut;
     address player = address(100);
@@ -14,7 +13,7 @@ contract DexTest is Test {
     function setUp() public {
         // create new instance of ethernaut
         ethernaut = new Ethernaut();
-        vm.deal(player, 5 ether); // give our address 5 ether
+        vm.deal(player, 5 ether); // give our player 5 ether
     }
 
     function min(uint256 a, uint256 b) internal pure returns (uint256) {
@@ -57,14 +56,8 @@ contract DexTest is Test {
         address token2Address = ethernautDex.token2();
 
         // -- 2 --
-        ERC20(token1Address).approve(
-            address(ethernautDex),
-            type(uint256).max
-        );
-        ERC20(token2Address).approve(
-            address(ethernautDex),
-            type(uint256).max
-        );
+        ERC20(token1Address).approve(address(ethernautDex), type(uint256).max);
+        ERC20(token2Address).approve(address(ethernautDex), type(uint256).max);
 
         // -- 3 --
         bool flip = true;
@@ -95,20 +88,14 @@ contract DexTest is Test {
             if (flip) {
                 uint256 amount = min(
                     ethernautDex.balanceOf(token1Address, player),
-                    ethernautDex.balanceOf(
-                        token1Address,
-                        address(ethernautDex)
-                    )
+                    ethernautDex.balanceOf(token1Address, address(ethernautDex))
                 );
                 ethernautDex.swap(token1Address, token2Address, amount);
                 flip = false;
             } else {
                 uint256 amount = min(
                     ethernautDex.balanceOf(token2Address, player),
-                    ethernautDex.balanceOf(
-                        token2Address,
-                        address(ethernautDex)
-                    )
+                    ethernautDex.balanceOf(token2Address, address(ethernautDex))
                 );
                 ethernautDex.swap(token2Address, token1Address, amount);
                 flip = true;

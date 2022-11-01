@@ -6,7 +6,6 @@ import "forge-std/console.sol";
 import "../src/NaughtCoin/NaughtCoinFactory.sol";
 import "../src/Ethernaut.sol";
 
-// forge test --match-contract NaughtCoinTest -vvvv
 contract NaughtCoinTest is Test {
     Ethernaut ethernaut;
     address player = address(100);
@@ -15,7 +14,7 @@ contract NaughtCoinTest is Test {
     function setUp() public {
         // create new instance of ethernaut
         ethernaut = new Ethernaut();
-        vm.deal(player, 5 ether); // give our address 5 ether
+        vm.deal(player, 5 ether); // give our player 5 ether
         vm.deal(player2, 1 ether);
     }
 
@@ -35,7 +34,7 @@ contract NaughtCoinTest is Test {
          * This challenge is to teach us not to relly on the available function.
          * The contract inherit from ERC20, so eventhough we don't see the function
          * We can call them. And they are not protected by lockTokens modifier !
-        */
+         */
 
         uint256 playerBalance = ethernautNaughtCoin.balanceOf(player);
         ethernautNaughtCoin.approve(

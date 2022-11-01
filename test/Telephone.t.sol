@@ -6,7 +6,6 @@ import "../src/Telephone/TelephoneFactory.sol";
 import "../src/Ethernaut.sol";
 import "forge-std/console.sol";
 
-// forge test --match-contract TelephoneTest -vvvv
 contract TelephoneTest is Test {
     Ethernaut ethernaut;
     address player = address(100);
@@ -14,7 +13,7 @@ contract TelephoneTest is Test {
     function setUp() public {
         // create new instance of ethernaut
         ethernaut = new Ethernaut();
-        vm.deal(player, 5 ether); // give our address 5 ether
+        vm.deal(player, 5 ether); // give our player 5 ether
     }
 
     function testTelephoneHack() public {
@@ -32,14 +31,14 @@ contract TelephoneTest is Test {
          *************** */
         TelephoneHack telephoneHack = new TelephoneHack(levelAddress);
         /*
-        * tx.origin:
-        *   The original user wallet that initiated the transaction
-        *   The origin address of potentially an entire chain of transactions and calls
-        *   Only user wallet addresses can be the tx.origin
-        *   A contract address can never be the tx.origin
-        * msg.sender:
-        *   The immediate sender of this specific transaction or call
-        *   Both user wallets and smart contracts can be the msg.sender
+         * tx.origin:
+         *   The original user wallet that initiated the transaction
+         *   The origin address of potentially an entire chain of transactions and calls
+         *   Only user wallet addresses can be the tx.origin
+         *   A contract address can never be the tx.origin
+         * msg.sender:
+         *   The immediate sender of this specific transaction or call
+         *   Both user wallets and smart contracts can be the msg.sender
          */
         telephoneHack.attack();
         assertEq(ethernautTelephone.owner(), player);

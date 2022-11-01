@@ -6,7 +6,6 @@ import "forge-std/console.sol";
 import "../src/Preservation/PreservationFactory.sol";
 import "../src/Ethernaut.sol";
 
-// forge test --match-contract PreservationTest -vvvv
 contract PreservationTest is Test {
     Ethernaut ethernaut;
     address player = address(100);
@@ -14,7 +13,7 @@ contract PreservationTest is Test {
     function setUp() public {
         // create new instance of ethernaut
         ethernaut = new Ethernaut();
-        vm.deal(player, 5 ether); // give our address 5 ether
+        vm.deal(player, 5 ether); // give our player 5 ether
     }
 
     function testPreservationHack() public {
@@ -33,20 +32,20 @@ contract PreservationTest is Test {
          *************** */
         PreservationHack preservationHack = new PreservationHack(levelAddress);
         /*
-        * This challenge teaches us something very important.
-        * It's not recommended to use external contract to update a contract state
-        *
-        * When the Preservation contract execute setFirstTime(UINT) it actually calls
-        *   LibraryContract.setTime(UINT) via delegate call
-        * 
-        * By setting up a hack contract, with the exact same storage layout
-        * We can re-define the setTime function to also update the owner.
-        * Calling setFirstTime will make a delegate call to timeZone1Library
-        * Which, in our case is the hack contract. So it will call the setTime function with the addres of the contract
-        * Then we can call it a second time to make msg.sender the owner
-        *  In our case --> player.
-        *
-        */
+         * This challenge teaches us something very important.
+         * It's not recommended to use external contract to update a contract state
+         *
+         * When the Preservation contract execute setFirstTime(UINT) it actually calls
+         *   LibraryContract.setTime(UINT) via delegate call
+         *
+         * By setting up a hack contract, with the exact same storage layout
+         * We can re-define the setTime function to also update the owner.
+         * Calling setFirstTime will make a delegate call to timeZone1Library
+         * Which, in our case is the hack contract. So it will call the setTime function with the addres of the contract
+         * Then we can call it a second time to make msg.sender the owner
+         *  In our case --> player.
+         *
+         */
 
         vm.roll(5); // prevent underflow
         preservationHack.attack();

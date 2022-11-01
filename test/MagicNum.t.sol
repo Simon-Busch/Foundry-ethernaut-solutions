@@ -6,7 +6,6 @@ import "forge-std/console.sol";
 import "../src/MagicNum/MagicNumFactory.sol";
 import "../src/Ethernaut.sol";
 
-// forge test --match-contract MagicNumTest -vvvv
 contract MagicNumTest is Test {
     Ethernaut ethernaut;
     address player = address(100);
@@ -14,7 +13,7 @@ contract MagicNumTest is Test {
     function setUp() public {
         // create new instance of ethernaut
         ethernaut = new Ethernaut();
-        vm.deal(player, 5 ether); // give our address 5 ether
+        vm.deal(player, 5 ether); // give our player 5 ether
     }
 
     function testMagicNumHack() public {

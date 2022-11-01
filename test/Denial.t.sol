@@ -6,7 +6,6 @@ import "forge-std/console.sol";
 import "../src/Denial/DenialFactory.sol";
 import "../src/Ethernaut.sol";
 
-// forge test --match-contract DenialTest -vvvv
 contract DenialTest is Test {
     Ethernaut ethernaut;
     address player = address(100);
@@ -14,7 +13,7 @@ contract DenialTest is Test {
     function setUp() public {
         // create new instance of ethernaut
         ethernaut = new Ethernaut();
-        vm.deal(player, 5 ether); // give our address 5 ether
+        vm.deal(player, 5 ether); // give our player 5 ether
     }
 
     function testDenialHack() public {
@@ -32,11 +31,11 @@ contract DenialTest is Test {
          *    Attack     *
          *************** */
         /*
-        * The goal of this level is to become a withdraw partner and drain all gas of the transactions
-        * The idea is to create a Hack contract, and set it as a "withdraw partner"
-        * Once the withdraw function is done, will go through a inifite loop in the fallback with:
-        *  while (true) {} and basically drain all the gas
-        */
+         * The goal of this level is to become a withdraw partner and drain all gas of the transactions
+         * The idea is to create a Hack contract, and set it as a "withdraw partner"
+         * Once the withdraw function is done, will go through a inifite loop in the fallback with:
+         *  while (true) {} and basically drain all the gas
+         */
         ethernautDenial.setWithdrawPartner(player);
         DenialHack denialHack = new DenialHack(levelAddress);
         /*****************

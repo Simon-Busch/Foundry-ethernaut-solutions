@@ -6,7 +6,6 @@ import "forge-std/console.sol";
 import "../src/DexTwo/DexTwoFactory.sol";
 import "../src/Ethernaut.sol";
 
-// forge test --match-contract DexTwoTest -vvvv
 contract DexTwoTest is Test {
     Ethernaut ethernaut;
     address player = address(100);
@@ -14,7 +13,7 @@ contract DexTwoTest is Test {
     function setUp() public {
         // create new instance of ethernaut
         ethernaut = new Ethernaut();
-        vm.deal(player, 5 ether); // give our address 5 ether
+        vm.deal(player, 5 ether); // give our player 5 ether
     }
 
     function testDexTwoHack() public {

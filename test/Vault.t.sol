@@ -6,7 +6,6 @@ import "forge-std/console.sol";
 import "../src/Vault/VaultFactory.sol";
 import "../src/Ethernaut.sol";
 
-// forge test --match-contract VaultTest -vvvv
 contract VaultTest is Test {
     Ethernaut ethernaut;
     address player = address(100);
@@ -14,7 +13,7 @@ contract VaultTest is Test {
     function setUp() public {
         // create new instance of ethernaut
         ethernaut = new Ethernaut();
-        vm.deal(player, 5 ether); // give our address 5 ether
+        vm.deal(player, 5 ether); // give our player 5 ether
     }
 
     function testVaultHack() public {

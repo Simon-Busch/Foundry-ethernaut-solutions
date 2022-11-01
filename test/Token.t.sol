@@ -6,7 +6,6 @@ import "forge-std/console.sol";
 import "../src/Token/TokenFactory.sol";
 import "../src/Ethernaut.sol";
 
-// forge test --match-contract TokenTest -vvvv
 contract TokenTest is Test {
     Ethernaut ethernaut;
     address player = address(100);
@@ -15,7 +14,7 @@ contract TokenTest is Test {
     function setUp() public {
         // create new instance of ethernaut
         ethernaut = new Ethernaut();
-        vm.deal(player, 5 ether); // give our address 5 ether
+        vm.deal(player, 5 ether); // give our player 5 ether
     }
 
     function testTokenHack() public {
@@ -32,11 +31,11 @@ contract TokenTest is Test {
          *    Attack     *
          *************** */
         /*
-        * Walkthrough:
-        * For this level we can use 2 addresses
-        * default _initialSupply is set to 20
-        * we want to transfer an amount of token  2**526 causing overflow
-        */
+         * Walkthrough:
+         * For this level we can use 2 addresses
+         * default _initialSupply is set to 20
+         * we want to transfer an amount of token  2**526 causing overflow
+         */
         // this level is a classic example of overflow, which is now prevented by default in Sol ^8.0.0
         vm.startPrank(player2);
         ethernautToken.transfer(player, 2**256 - 21);

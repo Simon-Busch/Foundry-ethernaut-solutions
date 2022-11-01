@@ -6,7 +6,6 @@ import "forge-std/console.sol";
 import "../src/GatekeeperOne/GatekeeperOneFactory.sol";
 import "../src/Ethernaut.sol";
 
-// forge test --match-contract GatekeeperOneTest -vvvv
 contract GatekeeperOneTest is Test {
     Ethernaut ethernaut;
     address player = address(100);
@@ -14,7 +13,7 @@ contract GatekeeperOneTest is Test {
     function setUp() public {
         // create new instance of ethernaut
         ethernaut = new Ethernaut();
-        vm.deal(player, 5 ether); // give our address 5 ether
+        vm.deal(player, 5 ether); // give our player 5 ether
     }
 
     function testGatekeeperOneHack() public {
@@ -62,16 +61,17 @@ contract GatekeeperOneTest is Test {
         vm.startPrank(player);
 
         /*
-        * Gate key, 2 solutions:
-        */
+         * Gate key, 2 solutions:
+         */
 
         // bytes4 halfKey = bytes4(
         //     bytes.concat(bytes2(uint16(0)), bytes2(uint16(uint160(tx.origin))))
         // );
         // bytes8 gateKey = bytes8(bytes.concat(halfKey, halfKey));
 
-        bytes8 gateKey = bytes8(uint64(uint160(tx.origin))) & 0xFFFFFFFF0000FFFF;
-          // applying the mask "0xFFFFFFFF0000FFFF"
+        bytes8 gateKey = bytes8(uint64(uint160(tx.origin))) &
+            0xFFFFFFFF0000FFFF;
+        // applying the mask "0xFFFFFFFF0000FFFF"
 
         // Solution 1
         // for (uint256 i = 0; i <= 8191; i++) {
@@ -92,7 +92,6 @@ contract GatekeeperOneTest is Test {
                 break;
             }
         }
-
 
         assertEq(ethernautGatekeeperOne.entrant(), tx.origin);
         vm.stopPrank();
