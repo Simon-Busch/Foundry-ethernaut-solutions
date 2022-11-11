@@ -37,13 +37,7 @@ contract GatekeeperOneTest is Test {
         /*
          * In this level, the goal is to become the entrant but there are 3 modifier  blocking us straight
          * How to defeat them ?
-         *  I see here 2 solution :
-         *
-         *  --1--
          * gateOne -> we need `msg.sender != tx.origin`.
-         *   In our case we start the prank as Player, but our hack contract will call the enter function
-         *   => msg.sender -> hack contract
-         *   => tx.origin -> player
          * gateTwo -> during our call we need to set the gas amount as a multiple of 8191 , so modulo will be 0
          *   The idea is to make a loop with a try catch and make a call to the function
          *   On each interation of the loop we will add some gas
@@ -55,8 +49,6 @@ contract GatekeeperOneTest is Test {
          *      means => 0x1111111100001111 != 0x00001111 "mask" as following 0xFFFFFFFF0000FFFF
          *   3. uint32(uint64(_gateKey)) == uint16(uint160(tx.origin)),
          *      we can know calculate the keys as below
-         *  --2--
-         *
          */
         vm.startPrank(player);
 
