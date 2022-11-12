@@ -47,7 +47,6 @@ contract PreservationTest is Test {
          *
          */
 
-        vm.roll(5); // prevent underflow
         preservationHack.attack();
         assertEq(ethernautPreservation.owner(), player);
         /*****************
