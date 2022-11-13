@@ -59,18 +59,16 @@ contract MagicNumTest is Test {
         * F3 return
        */
         address deployedContractAddress;
-        // Deploy the raw bytecode via the `create` yul function
-        // create(v, p, n)
+        bytes memory code = hex"69602A60005260206000F3600052600A6016F3";
         assembly {
-            let ptr := mload(0x40)
-            mstore(ptr, shl(0x68, 0x69602A60005260206000F3600052600A6016F3))
-            deployedContractAddress := create(0, ptr, 0x13)
+            deployedContractAddress := create(0, add(code, 0x20), mload(code))
         }
         ethernautMagicNum.setSolver(deployedContractAddress);
+
         assertEq(
             Solver(deployedContractAddress).whatIsTheMeaningOfLife(),
             0x000000000000000000000000000000000000000000000000000000000000002a
-            // = 42 we know that from the factory
+            // == 42 we know that from the factory
         );
 
         /*****************
