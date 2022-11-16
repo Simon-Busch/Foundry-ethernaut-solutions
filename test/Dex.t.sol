@@ -43,7 +43,7 @@ contract DexTest is Test {
          * So let's go through what's happening below:
          * 1) we get the 2 tokens addresses
          * 2) approve the 2 tokens
-         * 3) We declare an outside variable to ...
+         * 3) We declare an outside variable to keep track of the flip state
          * 4) We create a while loop that will carry on until token1 is down to 0
          * 5) we have a helper function that will return the smaller balance between player && ethernautDex
          *  Once the loop run for a condition, we switch the flip variable because every time we go in the loop
