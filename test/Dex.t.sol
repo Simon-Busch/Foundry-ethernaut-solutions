@@ -67,19 +67,19 @@ contract DexTest is Test {
             ethernautDex.balanceOf(token1Address, address(ethernautDex)) > 0
         ) {
             emit log_named_uint(
-                "Remaining Token 1",
+                "DEX -- Token 1",
                 ethernautDex.balanceOf(token1Address, address(ethernautDex))
             );
             emit log_named_uint(
-                "Remaining Token 2",
+                "DEX -- Token 2",
                 ethernautDex.balanceOf(token2Address, address(ethernautDex))
             );
             emit log_named_uint(
-                "Token 1",
+                "USER -- Token 1",
                 ethernautDex.balanceOf(token1Address, player)
             );
             emit log_named_uint(
-                "Token 2",
+                "USER -- Token 2",
                 ethernautDex.balanceOf(token2Address, player)
             );
             emit log("");
@@ -101,6 +101,23 @@ contract DexTest is Test {
                 flip = true;
             }
         }
+        emit log_named_uint(
+            "DEX -- Token 1",
+            ethernautDex.balanceOf(token1Address, address(ethernautDex))
+        );
+        emit log_named_uint(
+            "DEX -- Token 2",
+            ethernautDex.balanceOf(token2Address, address(ethernautDex))
+        );
+        emit log_named_uint(
+            "USER -- Token 1",
+            ethernautDex.balanceOf(token1Address, player)
+        );
+        emit log_named_uint(
+            "USER -- Token 2",
+            ethernautDex.balanceOf(token2Address, player)
+        );
+        emit log("");
 
         /*****************
          *Level Submission*
