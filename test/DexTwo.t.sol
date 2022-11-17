@@ -50,6 +50,14 @@ contract DexTwoTest is Test {
         address token1 = ethernautDexTwo.token1();
         address token2 = ethernautDexTwo.token2();
         // make sure we start witht 10 tokens
+        emit log_named_uint(
+            "DEX -- Initial Balance -- Token 1",
+            ethernautDexTwo.balanceOf(token1, address(ethernautDexTwo))
+        );
+        emit log_named_uint(
+            "DEX -- Initial Balance -- Token 2",
+            ethernautDexTwo.balanceOf(token2, address(ethernautDexTwo))
+        );
         assertEq(ethernautDexTwo.balanceOf(token1, player), 10);
         assertEq(ethernautDexTwo.balanceOf(token2, player), 10);
 
@@ -76,6 +84,15 @@ contract DexTwoTest is Test {
         // -- 5 --
         ethernautDexTwo.swap(address(maliciousToken1), address(token1), 1);
         ethernautDexTwo.swap(address(maliciousToken2), address(token2), 1);
+
+        emit log_named_uint(
+            "DEX -- Final Balance -- Token 1",
+            ethernautDexTwo.balanceOf(token1, address(ethernautDexTwo))
+        );
+        emit log_named_uint(
+            "DEX -- Final Balance -- Token 2",
+            ethernautDexTwo.balanceOf(token2, address(ethernautDexTwo))
+        );
         // we drained the 100 tokens available
         assertEq(ethernautDexTwo.balanceOf(token1, player), 110);
         assertEq(ethernautDexTwo.balanceOf(token2, player), 110);
