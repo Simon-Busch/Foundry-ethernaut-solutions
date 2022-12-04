@@ -44,7 +44,7 @@ contract MotorbikeTest is Test {
         *   the addres of the logic contract
         * Reference: https://eips.ethereum.org/EIPS/eip-1967
         *
-        * On this challenge, we have once again uppgradable contracts
+        * In this challenge, we have once again upgradable contracts
         * Here is the goal: Would you be able to selfdestruct its engine and make the motorbike unusable ?
         * In order to understand what's happening let's decompose the contracs:
         * This is updated every time the logic contract is upgraded
@@ -58,19 +58,19 @@ contract MotorbikeTest is Test {
         * The goal here would be to upgrade the implementation contract and point it to our deployed attacker contract
         *
         * In order to upgrade the contract there is a function defined called upgradeAndCall
-        *   - first, it call the internal function _authorizeUpgrade which checks if the msg.sender == upgrader
-        *   - then it calls the internal function _upgradeToAndCall
+        *   - first, it calls the internal function _authorizeUpgrade which checks if the msg.sender == upgrader
+        *   - Then it calls the internal function _upgradeToAndCall
         *
         * How do we become the upgrader ?
         *   1) it's defined in the function initialize
         *   This is a special function used in UUPS-based contracts
-        *   This function also has the initialized function, inherited from Initializable from openZeppelin
+        *   This function also has the initializer modifier, inherited from Initializable from openZeppelin
         *   It acts as a constructor which can only be called once
         *   Please also notice that this initialize function is called in the proxy contract's [MOTORBIKE] constructor
         * !! So it's made in the context of the Proxy and not in the Implementation
         *
         * Here is the walkthrough:
-        * 1)initialise the engine
+        * 1)initialize the engine
         * 2)initialize the engineHack contract
         * 3)encode the initialize function call --> engineHack become the upgrader as it is the msg.sender
         * 4)After that, we can call upgradeToAndCall that will trigger the selfDestruct
