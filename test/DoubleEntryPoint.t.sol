@@ -33,19 +33,19 @@ contract DoubleEntryPointTest is Test {
          *    Attack     *
          *************** */
         /*
-         *The underlying token is an instance of the DET token implemented in the DoubleEntryPoint contract definition
+         * The underlying token is an instance of the DET token implemented in the DoubleEntryPoint contract definition
          * and the CryptoVault holds 100 units of it. Additionally the CryptoVault also holds 100 of LegacyToken LGT.
          * Target : figure out where the bug is in CryptoVault and protect it from being drained out of tokens
          *
          * ** LegayToken ** ERC20 token contract
-         * Interesting point that stands out here, the contract override the default transfer functrion adding its own logic
-         *  will check if the delegate addres ( SLOT 0 ) is set to 0
+         * Interesting point that stands out here, the contract override the default transfer function adding its own logic
+         *  will check if the delegate address ( SLOT 0 ) is set to 0
          *   If that case simply calls transfer(to,value);
          *  If not, there is delegateTransfer to delegate contract
          *
          * It's important to understand that in our  case, delegate is DoubleEntryPoint contract
          *
-         * There is also the function delegateToNewContract to to change the delegate but we need to be the owner.
+         * There is also the function delegateToNewContract to change the delegate but we need to be the owner.
          *
          *
          *
@@ -151,7 +151,7 @@ contract UpdatedBot is IDetectionBot {
     address private cryptoVault;
 
     // -- 2 --
-    constructor(address _cryptoVault) public {
+    constructor(address _cryptoVault) {
         cryptoVault = _cryptoVault;
     }
 
