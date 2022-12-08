@@ -122,7 +122,7 @@ contract GoodSamaritanHack {
     GoodSamaritan challenge;
 
     // -- 1 --
-    constructor(address _victim) public {
+    constructor(address _victim) {
         challenge = GoodSamaritan(_victim);
     }
 
