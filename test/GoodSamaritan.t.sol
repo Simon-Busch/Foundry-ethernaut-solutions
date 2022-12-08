@@ -35,13 +35,13 @@ contract GoodSamaritanTest is Test {
         /*
          * Let's deconstruct the contracts
          *  ** Coin **
-         * 1) Contructor: on initialization we need to pass an address that receives 1_000_000 coins
+         * 1) Constructor: on initialization we need to pass an address that receives 1_000_000 coins
          * This also updates a mappings of address => uint256
          *
          * 2) Transfer:
          * This function receive a _dest and _amount
          * There is a condition checking if the amount is <= the current balance of the msg.sender;
-         * Ther is also a check if the address is a contract and notifyes the amount
+         * There is also a check if the address is a contract and notifies the amount
          *
          * If the first condition is not met, it reverts with a custom error.
          *
@@ -68,7 +68,7 @@ contract GoodSamaritanTest is Test {
          *
          * 2) requestDonation.
          *  So that function is interesting. By default, it will try to donate 10 coin to the msg.sender
-         *  If it going through, that ends here.
+         *  If it's going through, that ends here.
          *  If not, we catch the error, and there is a check
          *  "keccak256(abi.encodeWithSignature("NotEnoughBalance()")) == keccak256(err)"
          *  The key here is to know that Solidity doesn't support direct comparison of two strings but can be hashed to compare their values.
@@ -112,8 +112,9 @@ contract GoodSamaritanTest is Test {
  *     -> behind the scene, the function calls wallet.donate10(msg.sender) in try / catch block
  *     -> as balance is > 10, it calls transfer
  *     -> transfer will understand that if(dest_.isContract()) is true
+ * NB: isContract is coming from Address library from OpenZeppelin
  *     -> notify will be called from our contract
- *  4) function will revert and go in the catch block we wanted to react
+ *  3) function will revert and go in the catch block we wanted to react
  */
 
 contract GoodSamaritanHack {
