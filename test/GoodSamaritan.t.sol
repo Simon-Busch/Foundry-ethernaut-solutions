@@ -107,14 +107,35 @@ contract GoodSamaritanTest is Test {
 
 /*
  * Here is the walkthrough:
- * 1) We instanciate the Hack contract to access the challenge
+ * 1) We instantiate the Hack contract to access the challenge
  * 2) Call the attack function to trigger requestDonation
  *     -> behind the scene, the function calls wallet.donate10(msg.sender) in try / catch block
- *     -> as balance is > 10, it calls transfer
- *     -> transfer will understand that if(dest_.isContract()) is true
+ *     -> as balance is 1_000_000, it calls transfer
+ *     -> transfer
+ *        Here, the currentBalance is still 1_000_000 and amount_ is 10
+ *        so the balances will get updated as following:
+ *        balances[msg.sender] -= amount_;
+ *        balances[dest_] += amount_;
  * NB: isContract is coming from Address library from OpenZeppelin
- *     -> notify will be called from our contract
- *  3) function will revert and go in the catch block we wanted to react
+ *     -> notify will be called from our contract with the amount_ == 1_000_000
+ *  with INotifyable(dest_).notify(amount_);
+ *  3) function as amount  will revert and go into the catch block we wanted to react
+ * Behind the scene, the function will be called 2 times with amount 10 and then 1_000_000
+ *
+ * Here is the flow behind the scene: 
+ * request a first donation
+ * call donate10
+ * balance is : 1000000
+ * calling coin.transfer for amount for 10
+ * calling transfer
+ * current balance is : 1000000
+ * calling notify with amount: 10 ( but we have in our hack contract a revert if amount ≥ 10 )
+ * in the catch block, as error comparison failed
+ * calling transfer remainder to msg.sender with total balance
+ * calling transfer
+ * current balance is : 1000000
+ * calling notify with amount: 1000000
+ *
  */
 
 contract GoodSamaritanHack {
