@@ -20,11 +20,11 @@ contract PreservationTest is Test {
         /****************
          * Factory setup *
          *************** */
-        PreservationFactory PreservationFactory = new PreservationFactory();
-        ethernaut.registerLevel(PreservationFactory);
+        PreservationFactory preservationFactory = new PreservationFactory();
+        ethernaut.registerLevel(preservationFactory);
         vm.startPrank(player);
         address levelAddress = ethernaut.createLevelInstance(
-            PreservationFactory
+            preservationFactory
         );
         Preservation ethernautPreservation = Preservation(levelAddress);
         /****************

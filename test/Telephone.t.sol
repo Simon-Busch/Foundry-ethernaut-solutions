@@ -66,6 +66,4 @@ contract TelephoneHack {
         //msg.sender != tx.origin because called from contract
         challenge.changeOwner(msg.sender);
     }
-
-    fallback() external payable {}
 }

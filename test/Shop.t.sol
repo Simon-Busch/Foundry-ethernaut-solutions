@@ -20,10 +20,10 @@ contract ShopTest is Test {
         /****************
          * Factory setup *
          *************** */
-        ShopFactory ShopFactory = new ShopFactory();
-        ethernaut.registerLevel(ShopFactory);
+        ShopFactory shopFactory = new ShopFactory();
+        ethernaut.registerLevel(shopFactory);
         vm.startPrank(player);
-        address levelAddress = ethernaut.createLevelInstance(ShopFactory);
+        address levelAddress = ethernaut.createLevelInstance(shopFactory);
         Shop ethernautShop = Shop(payable(levelAddress));
         /****************
          *    Attack     *

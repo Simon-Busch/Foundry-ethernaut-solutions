@@ -50,9 +50,7 @@ contract GatekeeperTwoTest is Test {
          *   Gate key being also == to uint64(0) - 1
          *   to we can get rid or uint64(_gateKey) and keep only uint64(0) - 1
          */
-        GatekeeperTwoHack gatekeeperTwoHack = new GatekeeperTwoHack(
-            levelAddress
-        );
+        new GatekeeperTwoHack(levelAddress);
 
         assertEq(ethernautGatekeeperTwo.entrant(), tx.origin);
         /*****************

@@ -24,14 +24,12 @@ contract ForceTest is Test {
         ethernaut.registerLevel(forceFactory);
         vm.startPrank(player);
         address levelAddress = ethernaut.createLevelInstance(forceFactory);
-        Force ethernautForce = Force(payable(levelAddress));
+        Force(payable(levelAddress));
         /****************
          *    Attack     *
          *************** */
         // simply instanciate the contract and the selfdestruct method will be called on the base contract
-        ForceHack forceHack = new ForceHack{value: 1 ether}(
-            payable(levelAddress)
-        );
+        new ForceHack{value: 1 ether}(payable(levelAddress));
         /*****************
          *Level Submission*
          ***************  */

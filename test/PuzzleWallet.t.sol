@@ -65,7 +65,7 @@ contract PuzzleWalletTest is Test {
         * As we need to become admin, we need to overwrite SLOT1
         * => admin && maxBalance
         * There are 2 function modifying the state of maxBalance
-        * init -> This function require maxBalance == 0; this is impossible as it's already been instanciated
+        * init -> This function require maxBalance == 0; this is impossible as it's already been instantiated
         *
         *  setMaxBalance [restricted to white list]
         * checking if the contract's balance is 0.

@@ -22,10 +22,10 @@ contract NaughtCoinTest is Test {
         /****************
          * Factory setup *
          *************** */
-        NaughtCoinFactory NaughtCoinFactory = new NaughtCoinFactory();
-        ethernaut.registerLevel(NaughtCoinFactory);
+        NaughtCoinFactory naughtCoinFactory = new NaughtCoinFactory();
+        ethernaut.registerLevel(naughtCoinFactory);
         vm.startPrank(player);
-        address levelAddress = ethernaut.createLevelInstance(NaughtCoinFactory);
+        address levelAddress = ethernaut.createLevelInstance(naughtCoinFactory);
         NaughtCoin ethernautNaughtCoin = NaughtCoin(levelAddress);
         /****************
          *    Attack     *
@@ -46,7 +46,7 @@ contract NaughtCoinTest is Test {
             player2,
             ethernautNaughtCoin.INITIAL_SUPPLY()
         );
-        uint256 player2Balance = ethernautNaughtCoin.balanceOf(player);
+        // uint256 player2Balance = ethernautNaughtCoin.balanceOf(player);
 
         //make sure contract balance is 0.
         assertEq((address(ethernautNaughtCoin).balance), 0);

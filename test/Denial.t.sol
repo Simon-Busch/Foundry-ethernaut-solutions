@@ -20,12 +20,12 @@ contract DenialTest is Test {
         /****************
          * Factory setup *
          *************** */
-        DenialFactory DenialFactory = new DenialFactory();
-        ethernaut.registerLevel(DenialFactory);
+        DenialFactory denialFactory = new DenialFactory();
+        ethernaut.registerLevel(denialFactory);
         vm.startPrank(player);
         address levelAddress = ethernaut.createLevelInstance{
             value: 0.001 ether
-        }(DenialFactory);
+        }(denialFactory);
         Denial ethernautDenial = Denial(payable(levelAddress));
         /****************
          *    Attack     *
@@ -37,7 +37,8 @@ contract DenialTest is Test {
          *  while (true) {} and basically drain all the gas
          */
         ethernautDenial.setWithdrawPartner(player);
-        DenialHack denialHack = new DenialHack(levelAddress);
+        // just creating the instance is enough to solve the level
+        new DenialHack(levelAddress);
         /*****************
          *Level Submission*
          ***************  */

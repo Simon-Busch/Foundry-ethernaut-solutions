@@ -26,7 +26,7 @@ contract RecoveryTest is Test {
         address levelAddress = ethernaut.createLevelInstance{
             value: 0.001 ether
         }(recoveryFactory);
-        Recovery ethernautRecovery = Recovery(payable(levelAddress));
+        Recovery(payable(levelAddress));
         /****************
          *    Attack     *
          *************** */

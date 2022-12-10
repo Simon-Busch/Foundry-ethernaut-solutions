@@ -47,7 +47,8 @@ contract FallbackTest is Test {
         assertEq(ethernautFallback.contributions(player), 1 wei);
 
         // -- 2 --
-        payable(address(ethernautFallback)).call{value: 1 wei}("");
+        (bool success, ) = payable(address(ethernautFallback)).call{value: 1 wei}("");
+        require(success);
         // -- 3 --
         assertEq(ethernautFallback.owner(), player);
         //-- 4 --

@@ -42,8 +42,8 @@ contract ReentranceTest is Test {
          * 4) receive function of the contract is called once first withdraw is triggered
          * 5) ... That triggers again the loop until there no funds
          **/
-        ReentranceHack ReentranceHack = new ReentranceHack(levelAddress);
-        ReentranceHack.attack{value: 0.1 ether}();
+        ReentranceHack reentranceHack = new ReentranceHack(levelAddress);
+        reentranceHack.attack{value: 0.1 ether}();
         uint256 levelBalance = address(ethernautReentrance).balance;
         assertEq(levelBalance, 0);
 

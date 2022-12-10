@@ -24,7 +24,7 @@ contract CoinFlipTest is Test {
         ethernaut.registerLevel(coinFlipFactory);
         vm.startPrank(player);
         address levelAddress = ethernaut.createLevelInstance(coinFlipFactory);
-        CoinFlip ethernautCoinFlip = CoinFlip(payable(levelAddress));
+        CoinFlip(payable(levelAddress));
 
         /****************
          *    Attack     *
@@ -80,6 +80,4 @@ contract CoinFlipHack {
         bool side = coinFlip == 1 ? true : false;
         challenge.flip(side);
     }
-
-    fallback() external payable {}
 }
