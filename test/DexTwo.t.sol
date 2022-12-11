@@ -11,7 +11,6 @@ contract DexTwoTest is Test {
     address player = address(100);
 
     function setUp() public {
-        // create new instance of ethernaut
         ethernaut = new Ethernaut();
         vm.deal(player, 5 ether); // give our player 5 ether
     }
@@ -36,12 +35,12 @@ contract DexTwoTest is Test {
          *        (from == token2 && to == token1),
          *    "Invalid tokens"
          * );
-         * There is then no check whether the token passed it token1 OR token2.
-         * We can then issue our own token as use it maliciously.
+         * Now, there is no validation whether the token passed it token1 OR token2.
+         * We can then issue our own token and use it maliciously.
          * Here is the walkthrough
          * 1) Get the address of the 2 first tokens
          * 2) Create 2 malicious tokens
-         * 3) approve these
+         * 3) approve them
          * 4) transfer these tokens
          * 5) swap both malicious tokens for "real" tokens
          */

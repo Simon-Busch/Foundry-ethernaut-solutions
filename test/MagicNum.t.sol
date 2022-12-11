@@ -11,7 +11,6 @@ contract MagicNumTest is Test {
     address player = address(100);
 
     function setUp() public {
-        // create new instance of ethernaut
         ethernaut = new Ethernaut();
         vm.deal(player, 5 ether); // give our player 5 ether
     }
@@ -31,7 +30,6 @@ contract MagicNumTest is Test {
         /*
         ** First part
         * Decompose the byte code:
-        * 0x => declare bytes code
         * 69 => PUSH 10
         * 602A => PUSH1  2A
         * 6000 => PUSH1  00

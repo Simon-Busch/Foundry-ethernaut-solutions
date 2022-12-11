@@ -11,7 +11,6 @@ contract RecoveryTest is Test {
     address player = address(100);
 
     function setUp() public {
-        // create new instance of ethernaut
         ethernaut = new Ethernaut();
         vm.deal(player, 5 ether); // give our player 5 ether
     }
@@ -34,7 +33,9 @@ contract RecoveryTest is Test {
         /*
          * For this level we will need to play around with EVM OPCODE
          * We need to really understand the contract and what's happening with new SimpleToken(_name, msg.sender, _initialSupply);
-         * It actually create OPCODE; new keyword uses the CREATE
+         * It actually create OPCODE; "new" keyword uses the CREATE
+         * newAddress = keccak256_encode(rlp_encode(sender_address, nonce))
+         *
          * So there is a way to find the address of this created contract with opcode
          * Once we have found it, it's quite straightforwad to call destroy method available
          *  on simpleToken and which is not protected :)
@@ -44,10 +45,10 @@ contract RecoveryTest is Test {
                 uint256(
                     keccak256(
                         abi.encodePacked(
-                            bytes1(0xd6),
-                            bytes1(0x94),
+                            bytes1(0xd6), // RLP encoding of a 20-byte address
+                            bytes1(0x94), // RLP encoding of a 20-byte address
                             address(levelAddress),
-                            bytes1(0x01)
+                            bytes1(0x01) // RLP encoding for nonce 1
                         )
                     )
                 )

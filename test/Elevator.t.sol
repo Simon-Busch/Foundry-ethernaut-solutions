@@ -11,7 +11,6 @@ contract ElevatorTest is Test {
     address player = address(100);
 
     function setUp() public {
-        // create new instance of ethernaut
         ethernaut = new Ethernaut();
         vm.deal(player, 5 ether); // give our player 5 ether
     }

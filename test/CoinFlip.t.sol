@@ -11,7 +11,6 @@ contract CoinFlipTest is Test {
     address player = address(100);
 
     function setUp() public {
-        // create new instance of ethernaut
         ethernaut = new Ethernaut();
         vm.deal(player, 5 ether); // give our player 5 ether
     }
@@ -33,7 +32,7 @@ contract CoinFlipTest is Test {
          * the goal of this contract is to guess the correct outcome 10 times in a row
          * Walkthrough:
          * 1) Sets block.height
-         * 2) Call attack contract.
+         * 2) Create the hack contract.
          * 3) Run the attack function 10 times
          */
         // -- 1 --

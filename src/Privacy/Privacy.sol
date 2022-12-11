@@ -7,7 +7,7 @@ contract Privacy {
   uint256 public ID = block.timestamp; // SLOT 1
   uint8 private flattening = 10; // SLOT 2
   uint8 private denomination = 255; // SLOT 2
-  uint16 private awkwardness = uint16(block.timestamp); // SLOT 2 //!! now is deprecated we need to use block.timestamp from now on.
+  uint16 private awkwardness = uint16(block.timestamp); // SLOT 2 //!! now is deprecated we need to use block.timestamp.
   bytes32[3] private data; // SLOT 3
   // bytes32[0] -- SLOT3
   // bytes32[1] -- SLOT4

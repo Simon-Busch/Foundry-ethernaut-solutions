@@ -11,7 +11,6 @@ contract GoodSamaritanTest is Test {
     address player = address(100);
 
     function setUp() public {
-        // create new instance of ethernaut
         ethernaut = new Ethernaut();
         vm.deal(player, 5 ether); // give our player 5 ether
     }
@@ -122,7 +121,7 @@ contract GoodSamaritanTest is Test {
  *  3) function as amount  will revert and go into the catch block we wanted to react
  * Behind the scene, the function will be called 2 times with amount 10 and then 1_000_000
  *
- * Here is the flow behind the scene: 
+ * Here is the flow behind the scene:
  * request a first donation
  * call donate10
  * balance is : 1000000

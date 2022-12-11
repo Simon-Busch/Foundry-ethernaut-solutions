@@ -11,7 +11,6 @@ contract PuzzleWalletTest is Test {
     address player = address(100);
 
     function setUp() public {
-        // create new instance of ethernaut
         ethernaut = new Ethernaut();
         vm.deal(player, 5 ether); // give our player 5 ether
     }
@@ -47,7 +46,7 @@ contract PuzzleWalletTest is Test {
         * NB: interesting if changes need to be done in the Implementation contract
         * Usually one of the main task of the proxy contract is to handle updgrade / auth ( role )
         * Usually has a fallback function that will send all the user's interaction to the Implementation contract
-        * ⚠️ done through delegatecall.
+        * !! done through delegatecall.
         *
         *   --PuzzleProxy--
         * In our case, the fallback function in PuzzleProxy is triggered if none other function is called.

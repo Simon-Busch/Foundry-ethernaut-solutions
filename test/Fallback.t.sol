@@ -11,7 +11,6 @@ contract FallbackTest is Test {
     address player = address(100);
 
     function setUp() public {
-        // create new instance of ethernaut
         ethernaut = new Ethernaut();
         vm.deal(player, 5 ether); // give our player 5 ether
     }
@@ -36,7 +35,7 @@ contract FallbackTest is Test {
          *
          * Walkthrough :
          * 1) Contribute 1 wei - verify contract state has been updated
-         * NB:  a contribution < 0.0001 ETH is needed
+         * NB:  a contribution < 0.0001 ETH is needed so we are in the mapping contributions
          * 2) Call contract with minimum value to trigger fallback
          * 3) Verify contract owner has changed to our address
          * 4) Withdraw from contract - Check contract balance before and after

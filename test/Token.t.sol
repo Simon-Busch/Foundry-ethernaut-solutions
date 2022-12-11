@@ -12,7 +12,6 @@ contract TokenTest is Test {
     address player2 = address(200);
 
     function setUp() public {
-        // create new instance of ethernaut
         ethernaut = new Ethernaut();
         vm.deal(player, 5 ether); // give our player 5 ether
     }

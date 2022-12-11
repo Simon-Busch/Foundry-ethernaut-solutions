@@ -11,7 +11,6 @@ contract DexTest is Test {
     address player = address(100);
 
     function setUp() public {
-        // create new instance of ethernaut
         ethernaut = new Ethernaut();
         vm.deal(player, 5 ether); // give our player 5 ether
     }
@@ -33,7 +32,7 @@ contract DexTest is Test {
          *    Attack     *
          *************** */
         /*
-         * goal of this level is for you to hack the basic DEX contract below and steal the funds by price manipulation.
+         * goal of this level is to hack the basic DEX contract below and steal the funds by price manipulation.
          * If we decompose all functions, and pay attention to the function get_swap_price, here is what we need to read:
          * T1 = token1
          * T2 = token2
@@ -42,13 +41,13 @@ contract DexTest is Test {
          * Example : Number of T1 to be returned = (30*110)/80 = 41.5
          * So let's go through what's happening below:
          * 1) we get the 2 tokens addresses
-         * 2) approve the 2 tokens
+         * 2) approve the 2 tokens for max quantity
          * 3) We declare an outside variable to keep track of the flip state
          * 4) We create a while loop that will carry on until token1 is down to 0
          * 5) we have a helper function that will return the smaller balance between player && ethernautDex
          *  Once the loop run for a condition, we switch the flip variable because every time we go in the loop
          *  A > B   A < B   A > B    A < B ...
-         *  until the amount is 0 and we siphoned the whole dex reserves
+         *  until the amount is 0 and we drained the whole dex reserves
          */
 
         // -- 1 --
