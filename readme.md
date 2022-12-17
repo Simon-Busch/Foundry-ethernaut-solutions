@@ -1,6 +1,12 @@
-# Ethernaut-Foundry
+# Ethernaut - Foundry
+## Setup
+Install foundry.
 
-- [x] Level 1 Fallback function
+`forge install`
+`forge build`
+`forge test -vvvvv`
+## Levels
+- [x] Level 1 Fallback
 - [x] Level 2 Fallout
 - [x] Level 3 Coin Flip
 - [x] Level 4 Telephone
