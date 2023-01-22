@@ -4,3 +4,4 @@ out = 'out'
 libs = ['lib']
 fs_permissions = [{ access = "read", path = "./src"}]
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config
+gas_reports = ["*"]
