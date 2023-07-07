@@ -27,47 +27,7 @@ contract MagicNumTest is Test {
         /****************
          *    Attack     *
          *************** */
-        /*
-        ** First part
-        * Decompose the byte code:
-        * 69 => PUSH 10
-        * 602A => PUSH1  2A
-        * 6000 => PUSH1  00
-        * 52 => MSTORE take 1)offset and 2)value ( 32 bytes ) and store in memory
-        *   Offset == 00
-        *   Value == 2A ( what we need )
-        * 6020 => PUSH1  20
-        * 6000 => PUSH1  00
-        * F3 => RETURN
-        * This piece of bytes code returns :
-        * 000000000000000000000000000000000000000000000000000000000000002a
-        * Which is what is needed for the function whatIsTheMeaningOfLife and also equal to 42
-        *-> This minimal smartcontract always and only returns 42
-        *
-        * Second part:
-        *
-        // * Then we prefix the first part with 69 - PUSH10 to place 10 bytes in stack
-        * That will basically push the first part of the code
-        * 6000 => PUSH1 00
-        * 52 => MSTORE => store this in the memory
-        *   Offset == 00
-        *   Value == return of 69602A60005260206000F3 ( as prefixed with 69 ) return the 10 bytes
-        * 600A => PUSH1 0A
-        * 6016 => PUSH1 16
-        * F3 return
-       */
-        address deployedContractAddress;
-        bytes memory code = hex"69602A60005260206000F3600052600A6016F3";
-        assembly {
-            deployedContractAddress := create(0, add(code, 0x20), mload(code))
-        }
-        ethernautMagicNum.setSolver(deployedContractAddress);
 
-        assertEq(
-            Solver(deployedContractAddress).whatIsTheMeaningOfLife(),
-            0x000000000000000000000000000000000000000000000000000000000000002a
-            // == 42 we know that from the factory
-        );
 
         /*****************
          *Level Submission*

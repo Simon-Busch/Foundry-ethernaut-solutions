@@ -27,14 +27,6 @@ contract PrivacyTest is Test {
         /****************
          *    Attack     *
          *************** */
-        /*
-         * In this challenge in order to kind the _key, we need to access bytes32[3] private data;
-         * With foundry, we have a helper function "load"
-         */
-        bytes32 secretData = vm.load(levelAddress, bytes32(uint256(5))); // 5th slot used
-        emit log_bytes32(secretData);
-        ethernautPrivacy.unlock(bytes16(secretData));
-        assertEq(ethernautPrivacy.locked(), false);
 
         /*****************
          *Level Submission*
