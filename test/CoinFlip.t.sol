@@ -16,6 +16,26 @@ contract CoinFlipTest is Test {
     }
 
     function testCoinFlipHack() public {
+        /****************
+         * Factory setup *
+         *************** */
+        CoinFlipFactory coinFlipFactory = new CoinFlipFactory();
+        ethernaut.registerLevel(coinFlipFactory);
+        vm.startPrank(player);
+        address levelAddress = ethernaut.createLevelInstance(coinFlipFactory);
+        CoinFlip(payable(levelAddress));
 
+        /****************
+         *    Attack     *
+         *************** */
+
+        /*****************
+         *Level Submission*
+         ***************  */
+        bool levelSuccessfullyPassed = ethernaut.submitLevelInstance(
+            payable(levelAddress)
+        );
+        vm.stopPrank();
+        assert(levelSuccessfullyPassed);
     }
 }

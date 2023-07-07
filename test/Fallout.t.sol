@@ -28,16 +28,7 @@ contract FalloutTest is Test {
         /****************
          *    Attack     *
          *************** */
-        /*
-         * The goal is to claim ownership of the contract
-         * if we study the contract, there is an unprotected function get change ownership
-         *
-         * Walkthrough:
-         * 1) Here the function to change ownership is not protected
-         * A simple call with a bit of ETH is enough to gain ownership
-         */
-        // -- 1 --
-        ethernautFallout.Fal1out{value: 0.1 ether}();
+
         /*****************
          *Level Submission*
          ***************  */

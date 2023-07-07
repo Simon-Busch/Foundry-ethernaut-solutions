@@ -29,15 +29,7 @@ contract DenialTest is Test {
         /****************
          *    Attack     *
          *************** */
-        /*
-         * The goal of this level is to become a withdraw partner and drain all gas of the transactions
-         * The idea is to create a Hack contract, and set it as a "withdraw partner"
-         * Once the withdraw function is done, will go through a inifite loop in the fallback with:
-         *  while (true) {} and basically drain all the gas
-         */
-        ethernautDenial.setWithdrawPartner(player);
-        // just creating the instance is enough to solve the level
-        new DenialHack(levelAddress);
+        
         /*****************
          *Level Submission*
          ***************  */

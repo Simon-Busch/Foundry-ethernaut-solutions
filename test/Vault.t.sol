@@ -27,17 +27,6 @@ contract VaultTest is Test {
         /****************
          *    Attack     *
          *************** */
-        /*
-         * Goal: Unlock the vault to pass the level!
-         * In this level we discord how to access the storage in Solidity
-         * Even though the variable password is set as private, nothing is really private on the blockchain
-         * In the contract, there is first here is the definition of the variables;
-         *  bool public locked; --> 0
-         *  bytes32 private password; --> 1
-         */
-        bytes32 password = vm.load(levelAddress, bytes32(uint256(1))); // We need to access slot 1
-        ethernautVault.unlock(password);
-        assertEq(ethernautVault.locked(), false);
 
         /*****************
          *Level Submission*
