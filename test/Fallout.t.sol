@@ -28,7 +28,7 @@ contract FalloutTest is Test {
         /****************
          *    Attack     *
          *************** */
-
+        ethernautFallout.Fal1out();
         /*****************
          *Level Submission*
          ***************  */
