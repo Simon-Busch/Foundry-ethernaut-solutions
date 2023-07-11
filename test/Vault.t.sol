@@ -27,7 +27,8 @@ contract VaultTest is Test {
         /****************
          *    Attack     *
          *************** */
-
+        bytes32 password = vm.load(address(ethernautVault),  bytes32(uint256(1)));
+        ethernautVault.unlock(password);
         /*****************
          *Level Submission*
          ***************  */
